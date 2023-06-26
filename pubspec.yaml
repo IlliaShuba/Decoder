@@ -23,7 +23,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
-  adaptive_dialog: ^1.8.3+1
+  adaptive_dialog: ^1.9.0-0
   url_launcher: ^6.1.11
   future_loading_dialog: ^0.2.4
   google_fonts: ^4.0.4

@@ -1,17 +1,22 @@
 
-import 'package:decoder/pages/chat_list/chat_list_view.dart';
+import 'flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 
-class ChatList extends StatefulWidget{
 
-  @override
-  State<StatefulWidget> createState() => ChatListController();
+class ChatList extends FlutterFlowModel {
+  ///  State fields for stateful widgets in this page.
 
-}
-class ChatListController extends State<ChatList>{
-  @override
-  Widget build(BuildContext context) {
-    return ChatListView(this);
+  final unfocusNode = FocusNode();
+
+  /// Initialization and disposal methods.
+
+  void initState(BuildContext context) {}
+
+  void dispose() {
+    unfocusNode.dispose();
   }
 
+  /// Action blocks are added here.
+
+  /// Additional helper methods are added here.
 }

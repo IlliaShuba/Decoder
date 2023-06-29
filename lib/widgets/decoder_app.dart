@@ -1,8 +1,6 @@
 import 'package:decoder/widgets/matrix.dart';
 import 'package:decoder/widgets/theme_builder.dart';
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:matrix/matrix.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
@@ -65,6 +63,7 @@ class DecoderAppState extends State<DecoderApp> {
               });
             }*/
             return MaterialApp.router(
+              debugShowCheckedModeBanner: false,
               localizationsDelegates: L10n.localizationsDelegates,
               routerConfig: AppRoutes().router,
               builder: (context, child) => Matrix(

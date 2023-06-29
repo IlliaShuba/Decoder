@@ -1,8 +1,8 @@
 
-import 'package:decoder/pages/chat_list/chat_list.dart';
 import 'package:decoder/pages/home/homeserver_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import '../pages/chat_list/chat_list_view.dart';
 import '../widgets/loading_view.dart';
 
 class AppRoutes{
@@ -26,7 +26,7 @@ class AppRoutes{
             name: 'rooms',
             path: 'rooms',
             builder: (BuildContext context, GoRouterState state) {
-              return ChatList();
+              return ChatListView();
             },
           ),
         ],

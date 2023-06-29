@@ -1,12 +1,10 @@
 import 'dart:ui';
 
-import 'package:decoder/pages/chat_list/chat_list_view.dart';
+
 import 'package:decoder/pages/home/homeserver_picker.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-
 import '../../utils/custom_scroll_behavior.dart';
 
 

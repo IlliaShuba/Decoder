@@ -11,7 +11,7 @@ class ChatList extends StatefulWidget{
 class ChatListController extends State<ChatList>{
   @override
   Widget build(BuildContext context) {
-    return ChatListView();
+    return ChatListView(this);
   }
 
 }

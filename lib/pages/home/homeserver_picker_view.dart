@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:decoder/pages/chat_list/chat_list_view.dart';
 import 'package:decoder/pages/home/homeserver_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -100,6 +101,10 @@ class HomeserverPickerView extends StatelessWidget {
               onPressed: controller.isLoading
                   ? null
                   : controller.checkHomeserverAction,
+              /*для тестування сторінки chat_list: */
+                // onPressed: () {
+                //   Navigator.push(context, MaterialPageRoute(builder: (context) => ChatListView()));
+                //    },
               style:ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xff75704e),
                 minimumSize: const Size(291, 42),

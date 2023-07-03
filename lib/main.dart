@@ -25,7 +25,7 @@ void main() async {
         queryParameters: queryParameters,
       ),
       lockScreen: LockScreen(), // Replace with your lock screen widget
-      enabled: true,
+      enabled: false,
     )
         : DecoderApp(
       clients: clients,

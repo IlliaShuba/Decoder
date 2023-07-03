@@ -1,6 +1,7 @@
 import 'package:decoder/utils/client_manager.dart';
 import 'package:decoder/utils/platform_infos.dart';
 import 'package:decoder/widgets/decoder_app.dart';
+import 'package:decoder/widgets/lock_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_lock/flutter_app_lock.dart';
@@ -23,7 +24,7 @@ void main() async {
         clients: clients,
         queryParameters: queryParameters,
       ),
-      lockScreen: Container(), // Replace with your lock screen widget
+      lockScreen: LockScreen(), // Replace with your lock screen widget
       enabled: false,
     )
         : DecoderApp(
@@ -32,5 +33,4 @@ void main() async {
     ),
   );
 }
-
 

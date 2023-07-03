@@ -1,9 +1,10 @@
 import 'package:decoder/pages/home/homeserver_picker.dart';
+import 'package:decoder/pages/login/login.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:go_router/go_router.dart';
 import '../../utils/custom_scroll_behavior.dart';
-
 
 class HomeserverPickerView extends StatelessWidget {
   final HomeserverPickerController controller;
@@ -86,7 +87,9 @@ class HomeserverPickerView extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: controller.isLoading
                   ? null
-                  : controller.checkHomeserverAction,
+                  : () { Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Login()));},//controller.checkHomeserverAction,
               style:ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xff278664),
                 minimumSize: const Size(double.infinity, 42),
@@ -97,7 +100,7 @@ class HomeserverPickerView extends StatelessWidget {
                 // 8RT (7:17)
                 L10n.of(context)!.start,
                 style: SafeGoogleFont (
-                  'Inter',
+                  'Montserrat',
                   fontSize: 15*fhm,
                   fontWeight: FontWeight.w600,
                   height: 1.2102272034*fhm,

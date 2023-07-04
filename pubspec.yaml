@@ -38,6 +38,7 @@ dependencies:
   json_path: 0.4.1
   timeago: 3.2.2
   page_transition: 2.0.4
+  vrouter: ^1.2.0+21
 
 
 

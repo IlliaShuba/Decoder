@@ -1,11 +1,11 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 import 'package:decoder/pages/home/homeserver_picker.dart';
-import 'package:flutter/material.dart';
-
-import 'package:flutter_gen/gen_l10n/l10n.dart';
 import '../../utils/custom_scroll_behavior.dart';
+import 'package:decoder/pages/chat_list/chat_list_view.dart';
 
 
 class HomeserverPickerView extends StatelessWidget {
@@ -96,13 +96,13 @@ class HomeserverPickerView extends StatelessWidget {
                 ),
               ),
             ElevatedButton.icon(
-              onPressed: controller.isLoading
-                  ? null
-                  : controller.checkHomeserverAction,
+              // onPressed: controller.isLoading
+              //     ? null
+              //     : controller.checkHomeserverAction,
               /*для тестування сторінки chat_list: */
-                // onPressed: () {
-                //   Navigator.push(context, MaterialPageRoute(builder: (context) => ChatListView()));
-                //    },
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ChatListView()));
+                   },
               style:ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xff75704e),
                 minimumSize: const Size(291, 42),

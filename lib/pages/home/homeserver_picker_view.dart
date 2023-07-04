@@ -87,9 +87,7 @@ class HomeserverPickerView extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: controller.isLoading
                   ? null
-                  : () { Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Login()));},//controller.checkHomeserverAction,
+                  : controller.checkHomeserverAction,
               style:ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xff278664),
                 minimumSize: const Size(double.infinity, 42),

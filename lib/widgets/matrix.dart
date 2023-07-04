@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:decoder/utils/account_bundles.dart';
 import 'package:decoder/utils/localized_exception_extension.dart';
 import 'package:decoder/utils/uia_request_manager.dart';
@@ -22,11 +23,14 @@ import 'package:http/http.dart' as http;
 import 'package:collection/collection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import 'package:vrouter/vrouter.dart';
 
 import '../config/app_config.dart';
 import '../config/routes.dart';
 import '../config/setting_keys.dart';
 import '../pages/key_verification/key_verification_dialog.dart';
+import '../utils/background_push.dart';
 import '../utils/client_manager.dart';
 import '../utils/platform_infos.dart';
 import '../utils/store.dart';
@@ -36,7 +40,7 @@ import '../utils/store.dart';
 class Matrix extends StatefulWidget {
   final Widget? child;
 
-  final GoRouter? router;
+  final GlobalKey<VRouterState>? router;
 
   final BuildContext context;
 
@@ -71,8 +75,7 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
   XFile? loginAvatar;
   String? loginUsername;
   bool? loginRegistrationSupported;
-
-  //BackgroundPush? backgroundPush;
+  BackgroundPush? backgroundPush;
 
   Client get client {
     if (widget.clients.isEmpty) {
@@ -173,7 +176,7 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
       ClientManager.addClientNameToStore(_loginClientCandidate!.clientName);
       _registerSubs(_loginClientCandidate!.clientName);
       _loginClientCandidate = null;
-      AppRoutes().router.go('room');
+      VRouter.of(context).to('rooms');
     });
     return candidate;
   }
@@ -331,12 +334,12 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
         );
 
         if (state != LoginState.loggedIn) {
-          context.go(
+          VRouter.of(context).to(
             '/rooms',
           );
         }
       } else {
-        context.go(
+        VRouter.of(context).to(
           state == LoginState.loggedIn ? '/rooms' : '/home',
         );
       }
@@ -398,7 +401,7 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
       onBlurSub = html.window.onBlur.listen((_) => webHasFocus = false);
     }*/
 
-    /*if (PlatformInfos.isMobile) {
+    if (PlatformInfos.isMobile) {
       backgroundPush = BackgroundPush(
         client,
         context,
@@ -421,7 +424,7 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
           }
         },
       );
-    }*/
+    }
 
     createVoipPlugin();
   }

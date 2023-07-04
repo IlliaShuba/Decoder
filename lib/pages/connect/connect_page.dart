@@ -9,6 +9,7 @@ import 'package:future_loading_dialog/future_loading_dialog.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:matrix/matrix.dart';
+import 'package:vrouter/vrouter.dart';
 
 import '../../config/app_config.dart';
 import '../../utils/platform_infos.dart';
@@ -86,7 +87,7 @@ class ConnectPageController extends State<ConnectPage> {
         loading = false;
       });
       Matrix.of(context).loginUsername = usernameController.text;
-      context.go('signup');
+      VRouter.of(context).to('signup');
     } catch (e, s) {
       Logs().d('Sign up failed', e, s);
       setState(() {
@@ -110,7 +111,7 @@ class ConnectPageController extends State<ConnectPage> {
 
   bool get supportsLogin => _supportsFlow('m.login.password');
 
-  void login() => context.go('login');
+  void login() => VRouter.of(context).to('login');
 
   Map<String, dynamic>? _rawLoginTypes;
 

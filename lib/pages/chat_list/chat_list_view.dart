@@ -470,11 +470,11 @@ class _ChatListViewState extends State<ChatListView> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    ChatPage(userName: "Nadia Bezruchko"),
+                                    ChatPage(userName: "Nadia"),
                               ),
                             );
                           },
-                          userName: "Nadia Bezruchko",
+                          userName: "Nadia",
                           message: "Ок",
                           date: "3 липня"),
                       Divider(

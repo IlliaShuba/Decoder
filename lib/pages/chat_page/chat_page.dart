@@ -114,7 +114,8 @@ class _ChatPage extends State<ChatPage> {
                   SizedBox(
                     width: 4 * fem,
                   ),
-                  Container(
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
                     child: Text(
                       '${widget.userName}',
                       style: TextStyle(
@@ -184,9 +185,14 @@ class _ChatPage extends State<ChatPage> {
                     children: [
                       // СПІВРОЗМОВНИК!!!!!!!!!!!!!
                       ChatPageDateUp(),
-                      ChatPageSender(text: 'Text'),
-                      ChatPageSender(text: 'Text'),
-                      ChatPageSender(text: 'Text'),
+                      ChatPageSender(
+                          text: 'Привіт, як справи?',
+                          senderName: widget.userName),
+                      ChatPageSender(
+                          text: 'Сподіваюсь все добре',
+                          senderName: widget.userName),
+                      ChatPageSender(
+                          text: 'Як твої рідні?', senderName: widget.userName),
                       SizedBox(
                         height: 10 * fem,
                       ),

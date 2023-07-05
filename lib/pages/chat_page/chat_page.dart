@@ -9,6 +9,7 @@ import 'package:decoder/utils/custom_scroll_behavior.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
+import 'package:vrouter/vrouter.dart';
 
 class ChatPage extends StatefulWidget {
   @override
@@ -88,11 +89,7 @@ class _ChatPage extends State<ChatPage> {
                   Container(
                     child: IconButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomeserverPicker()),
-                        );
+                        VRouter.of(context).to('/rooms');
                       },
                       icon: Image.asset(
                         'assets/icon/backbutton.png',

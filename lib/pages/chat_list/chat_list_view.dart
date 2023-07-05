@@ -327,7 +327,7 @@ class _ChatListViewState extends State<ChatListView> {
                       thickness: 1,
                     ),
                     ChatListItem(
-                        userName: "Skoreyko",
+                        userName: "Balinchenko",
                         message: "Гаразд",
                         date: "4 липня"
                     ),

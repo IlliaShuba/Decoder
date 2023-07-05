@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:vrouter/vrouter.dart';
 
 import '../pages/chat_list/chat_list.dart';
+import '../pages/chat_list/chat_list_view.dart';
 import '../pages/connect/connect_page.dart';
 import '../pages/home/homeserver_picker.dart';
 import '../pages/login/login.dart';
@@ -21,7 +22,7 @@ class AppRoutes {
   List<VRouteElement> get _mobileRoutes => [
         VWidget(
           path: '/rooms',
-          widget: ChatList(),
+          widget: ChatListView(),
         ),
         VWidget(
           path: '/settings',

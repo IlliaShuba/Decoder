@@ -1,3 +1,4 @@
+import 'package:decoder/pages/settings_page/settings_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../widgets/matrix.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
@@ -146,7 +147,7 @@ class _ChatListViewState extends State<ChatListView> {
               padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
               child: IconButton(
                 onPressed: () {
-                  print('Search IconButton pressed...');
+                  VRouter.of(context).to('/settings');
                 },
                 icon: Image.asset(
                 'assets/chat_list/images/user-buttom.png',

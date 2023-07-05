@@ -1,3 +1,4 @@
+import 'package:decoder/pages/chat_list/chat_list_view.dart';
 import 'package:decoder/pages/home/homeserver_picker.dart';
 import 'package:decoder/pages/home/homeserver_picker_view.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:decoder/utils/custom_scroll_behavior.dart';
 import 'package:decoder/pages/preference_page/preference_page.dart';
+import 'package:vrouter/vrouter.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -53,7 +55,7 @@ class _SettingsPage extends State<SettingsPage> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        //Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomeserverPicker()));
+                        VRouter.of(context).to('/rooms');
                       },
                       padding: EdgeInsets.only(right: 13*fem),
                       icon:
@@ -85,7 +87,7 @@ class _SettingsPage extends State<SettingsPage> {
 
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomeserverPicker()));
+                
                 },
                 child:  Container(
                   padding: EdgeInsets.fromLTRB(24*fem, 15*fem, 0*fem, 15*fem),
@@ -125,7 +127,6 @@ class _SettingsPage extends State<SettingsPage> {
             ),
             GestureDetector(
               onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomeserverPicker()));
               }, 
               child:  Container(
                 padding: EdgeInsets.fromLTRB(24*fem, 15*fem, 0*fem, 15*fem),
@@ -161,7 +162,7 @@ class _SettingsPage extends State<SettingsPage> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => PreferencePage()));
+                VRouter.of(context).to('/preference');
               }, 
               child:  Container(
                 padding: EdgeInsets.fromLTRB(24*fem, 15*fem, 0*fem, 15*fem),
@@ -198,7 +199,6 @@ class _SettingsPage extends State<SettingsPage> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomeserverPicker()));
               }, 
               child:  Container(
                 padding: EdgeInsets.fromLTRB(24*fem, 15*fem, 0*fem, 15*fem),
@@ -235,7 +235,6 @@ class _SettingsPage extends State<SettingsPage> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomeserverPicker()));
               }, 
               child:  Container(
                 padding: EdgeInsets.fromLTRB(24*fem, 15*fem, 0*fem, 15*fem),
@@ -272,7 +271,6 @@ class _SettingsPage extends State<SettingsPage> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomeserverPicker()));
               }, 
               child:  Container(
                 padding: EdgeInsets.fromLTRB(24*fem, 15*fem, 0*fem, 15*fem),
@@ -310,7 +308,6 @@ class _SettingsPage extends State<SettingsPage> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomeserverPicker()));
               }, 
               child:  Container(
                 padding: EdgeInsets.fromLTRB(24*fem, 15*fem, 0*fem, 15*fem),
@@ -347,7 +344,7 @@ class _SettingsPage extends State<SettingsPage> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomeserverPicker()));
+                //Navigator.push(context, MaterialPageRoute(builder: (context) =>  ChatListView()));
               }, 
               child:  Container(
                 padding: EdgeInsets.fromLTRB(24*fem, 15*fem, 0*fem, 15*fem),

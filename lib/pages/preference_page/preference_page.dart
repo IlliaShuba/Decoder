@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:decoder/utils/custom_scroll_behavior.dart';
+import 'package:vrouter/vrouter.dart';
 
 class PreferencePage extends StatefulWidget {
   @override
@@ -59,7 +60,7 @@ class _PreferencePage extends State<PreferencePage> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) =>  SettingsPage()));
+                        VRouter.of(context).to('/settings');
                       },
                       padding: EdgeInsets.only(right: 13*fem),
                       icon:

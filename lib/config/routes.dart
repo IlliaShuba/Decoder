@@ -1,3 +1,5 @@
+import 'package:decoder/pages/preference_page/preference_page.dart';
+import 'package:decoder/pages/settings_page/settings_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vrouter/vrouter.dart';
 
@@ -26,7 +28,7 @@ class AppRoutes {
         ),
         VWidget(
           path: '/settings',
-          widget: Container(),
+          widget: SettingsPage(),
           stackedRoutes: _settingsRoutes,
         ),
       ];
@@ -37,6 +39,11 @@ class AppRoutes {
       widget:  Container(),
       buildTransition: _dynamicTransition,
     ),
+    VWidget(
+      path: '/preference', 
+      widget: PreferencePage(),
+      buildTransition: _dynamicTransition,
+    )
   ];
 
   List<VRouteElement> get _homeRoutes => [

@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  flutter_vibrate: ^1.0.2
   matrix: ^0.20.5
   package_info_plus: ^4.0.2
   provider: ^6.0.5
@@ -54,5 +55,7 @@ flutter_launcher_icons:
 flutter:
   generate: true
   uses-material-design: true
+
   assets:
     - assets/icon/
+

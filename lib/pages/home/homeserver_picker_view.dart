@@ -1,11 +1,8 @@
 import 'package:decoder/pages/home/homeserver_picker.dart';
 import 'package:decoder/pages/login/login.dart';
+import 'package:decoder/utils/custom_scroll_behavior.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/l10n.dart';
-import 'package:go_router/go_router.dart';
-import 'package:vrouter/vrouter.dart';
-import '../../utils/custom_scroll_behavior.dart';
 import '../chat_page/chat_page.dart';
 
 class HomeserverPickerView extends StatelessWidget {
@@ -32,8 +29,9 @@ class HomeserverPickerView extends StatelessWidget {
           children: [
             Container(
               // logoALc (1:1044)
+
               margin:
-                  EdgeInsets.fromLTRB(77 * fem, 0 * fhm, 76 * fem, 25 * fhm),
+                  EdgeInsets.fromLTRB(77 * fem, 0 * fhm, 76 * fem, 22 * fhm),
               width: double.infinity,
               height: 164 * fhm,
               child: Stack(

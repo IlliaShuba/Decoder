@@ -1,8 +1,13 @@
+import 'dart:core';
+
 import 'package:decoder/pages/chat_page/chat_page.dart';
+import 'package:decoder/pages/preference_page/preference_page.dart';
+import 'package:decoder/pages/settings_page/settings_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vrouter/vrouter.dart';
 
 import '../pages/chat_list/chat_list.dart';
+import '../pages/chat_list/chat_list_view.dart';
 import '../pages/connect/connect_page.dart';
 import '../pages/home/homeserver_picker.dart';
 import '../pages/login/login.dart';
@@ -22,7 +27,7 @@ class AppRoutes {
   List<VRouteElement> get _mobileRoutes => [
         VWidget(
           path: '/rooms',
-          widget: ChatList(),
+          widget: ChatListView(),
         ),
         VWidget(
           path: '/chat-page',
@@ -30,7 +35,7 @@ class AppRoutes {
         ),
         VWidget(
           path: '/settings',
-          widget: Container(),
+          widget: SettingsPage(),
           stackedRoutes: _settingsRoutes,
         ),
       ];
@@ -41,6 +46,11 @@ class AppRoutes {
           widget: Container(),
           buildTransition: _dynamicTransition,
         ),
+        VWidget(
+          path: '/preference',
+          widget: PreferencePage(),
+          buildTransition: _dynamicTransition,
+        )
       ];
 
   List<VRouteElement> get _homeRoutes => [

@@ -33,6 +33,12 @@ dependencies:
   desktop_notifications: ^0.6.3
   desktop_lifecycle: ^0.1.1
   flutter_launcher_icons: ^0.13.1
+  image_picker: ^1.0.0
+  flutter_web_auth_2: ^2.1.5
+  flutter_local_notifications: ^15.0.0
+  unifiedpush: ^5.0.0
+  vrouter: ^1.2.1
+  flutter_cache_manager: ^3.3.1
 
 
 dev_dependencies:
@@ -49,3 +55,7 @@ flutter_launcher_icons:
 flutter:
   generate: true
   uses-material-design: true
+
+  assets:
+    - assets/icon/
+

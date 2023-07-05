@@ -14,6 +14,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:decoder/config/app_config.dart';
 import 'package:decoder/utils/platform_infos.dart';
 import 'package:decoder/widgets/matrix.dart';
+import 'package:vrouter/vrouter.dart';
 
 import '../utils/matrix_locals.dart';
 
@@ -115,7 +116,7 @@ extension LocalNotificationsExtension on MatrixState {
             room.setReadMarker(event.eventId, mRead: event.eventId);
             break;
           case DesktopNotificationActions.openChat:
-            context.go('/rooms/${room.id}');
+            VRouter.of(context).to('/rooms/${room.id}');
             break;
         }
       });

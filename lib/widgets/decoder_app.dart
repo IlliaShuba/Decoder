@@ -1,21 +1,24 @@
 import 'package:decoder/widgets/matrix.dart';
 import 'package:decoder/widgets/theme_builder.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matrix/matrix.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:vrouter/vrouter.dart';
 
 
+import '../config/app_config.dart';
 import '../config/routes.dart';
 import '../config/themes.dart';
 
 class DecoderApp extends StatefulWidget {
-
   final Widget? testWidget;
   final List<Client> clients;
   final Map<String, String>? queryParameters;
+  static GlobalKey<VRouterState> routerKey = GlobalKey<VRouterState>();
 
   const DecoderApp({
     Key? key,
@@ -33,6 +36,7 @@ class DecoderAppState extends State<DecoderApp> {
   String? _initialUrl;
   ThemeMode? _themeMode;
   Color? _primaryColor;
+  bool? columnMode;
 
   ThemeMode get themeMode => _themeMode ?? ThemeMode.system;
 
@@ -54,26 +58,35 @@ class DecoderAppState extends State<DecoderApp> {
           builder: (context, constraints) {
             final isColumnMode =
             DecoderThemes.isColumnModeByWidth(constraints.maxWidth);
-            /*if (isColumnMode != columnMode) {
+            if (isColumnMode != columnMode) {
               Logs().v('Set Column Mode = $isColumnMode');
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 setState(() {
-                  _initialUrl = brigadachatApp.routerKey.currentState?.url;
+                  _initialUrl = DecoderApp.routerKey.currentState?.url;
                   columnMode = isColumnMode;
-                  brigadachatApp.routerKey = GlobalKey<VRouterState>();
+                  DecoderApp.routerKey = GlobalKey<VRouterState>();
                 });
               });
-            }*/
-            return MaterialApp.router(
+            }
+            return VRouter(
+              key: DecoderApp.routerKey,
+              title: AppConfig.applicationName,
+              debugShowCheckedModeBanner: false,
+              themeMode: themeMode,
+              theme: DecoderThemes.buildTheme(Brightness.light, primaryColor),
+              darkTheme: DecoderThemes.buildTheme(Brightness.dark, primaryColor),
+              //scrollBehavior: CustomScrollBehavior(),
+              logs: kReleaseMode ? VLogs.none : VLogs.info,
               localizationsDelegates: L10n.localizationsDelegates,
-              routerConfig: AppRoutes().router,
+              supportedLocales: L10n.supportedLocales,
+              initialUrl: _initialUrl ?? '/',
+              routes: AppRoutes(columnMode ?? false).routes,
               builder: (context, child) => Matrix(
                 context: context,
+                router: DecoderApp.routerKey,
                 clients: widget.clients,
-                router: AppRoutes().router,
                 child: child,
               ),
-
             );
           },
         ),

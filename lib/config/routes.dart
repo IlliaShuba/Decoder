@@ -1,36 +1,74 @@
-
-import 'package:decoder/pages/home/homeserver_picker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
-import '../pages/chat_list/chat_list_view.dart';
+import 'package:vrouter/vrouter.dart';
+
+import '../pages/chat_list/chat_list.dart';
+import '../pages/connect/connect_page.dart';
+import '../pages/home/homeserver_picker.dart';
+import '../pages/login/login.dart';
 import '../widgets/loading_view.dart';
 
-class AppRoutes{
-  final GoRouter router = GoRouter(
-    initialLocation: '/',
-    routes: <RouteBase>[
-      GoRoute(
-        path: '/',
-        builder: (BuildContext context, GoRouterState state) {
-          return LoadingView();
-        },
-        routes: <RouteBase>[
-          GoRoute(
-            name: 'home',
-            path: 'home',
-            builder: (BuildContext context, GoRouterState state) {
-              return HomeserverPicker();
-            },
-          ),
-          GoRoute(
-            name: 'rooms',
-            path: 'rooms',
-            builder: (BuildContext context, GoRouterState state) {
-              return ChatListView();
-            },
-          ),
-        ],
-      ),
-    ],
-  );
+class AppRoutes {
+  final bool columnMode;
+
+  AppRoutes(this.columnMode);
+
+  List<VRouteElement> get routes => [
+        ..._homeRoutes,
+        //if (columnMode) ..._tabletRoutes,
+        if (!columnMode) ..._mobileRoutes,
+      ];
+
+  List<VRouteElement> get _mobileRoutes => [
+        VWidget(
+          path: '/rooms',
+          widget: ChatList(),
+        ),
+        VWidget(
+          path: '/settings',
+          widget: Container(),
+          stackedRoutes: _settingsRoutes,
+        ),
+      ];
+
+  List<VRouteElement> get _settingsRoutes => [
+    VWidget(
+        path: 'general',
+      widget:  Container(),
+      buildTransition: _dynamicTransition,
+    ),
+  ];
+
+  List<VRouteElement> get _homeRoutes => [
+    VWidget(path: '/', widget: const LoadingView()),
+    VWidget(
+      path: '/home',
+      widget: const HomeserverPicker(),
+      buildTransition: _fadeTransition,
+      stackedRoutes: [
+        VWidget(
+          path: 'login',
+          widget: const Login(),
+          buildTransition: _fadeTransition,
+        ),
+        VWidget(
+          path: 'connect',
+          widget: const ConnectPage(),
+          buildTransition: _fadeTransition,
+          stackedRoutes: [
+            VWidget(
+              path: 'login',
+              widget: const Login(),
+              buildTransition: _fadeTransition,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ];
+
+  FadeTransition Function(dynamic, dynamic, dynamic)? get _dynamicTransition =>
+      columnMode ? _fadeTransition : null;
+
+  FadeTransition _fadeTransition(animation1, _, child) =>
+      FadeTransition(opacity: animation1, child: child);
 }

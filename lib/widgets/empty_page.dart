@@ -24,7 +24,7 @@ class EmptyPage extends StatelessWidget {
             child: Hero(
               tag: 'info-logo',
               child: Image.asset(
-                'assets/favicon.png',
+                'assets/icon/logo.png',
                 width: width,
                 height: width,
                 filterQuality: FilterQuality.medium,

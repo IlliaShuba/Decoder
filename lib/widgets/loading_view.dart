@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:matrix/matrix.dart';
+import 'package:vrouter/vrouter.dart';
 
 class LoadingView extends StatelessWidget {
   const LoadingView({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class LoadingView extends StatelessWidget {
       (_) async {
         /// helper class checking for updates on platforms without store release
         //await UpdateCheckerNoStore(context).checkUpdate();
-        context.go(
+        VRouter.of(context).to(
           Matrix.of(context).widget.clients.any(
                     (client) =>
                         client.onLoginStateChanged.value == LoginState.loggedIn,

@@ -11,6 +11,7 @@ dependencies:
     sdk: flutter
   flutter_svg: ^2.0.7
   cupertino_icons: ^1.0.2
+  flutter_vibrate: ^1.0.2
   matrix: ^0.20.5
   package_info_plus: ^4.0.2
   provider: ^6.0.5
@@ -24,7 +25,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
-  adaptive_dialog: ^1.8.3+1
+  adaptive_dialog: ^1.9.0-0
   url_launcher: ^6.1.11
   future_loading_dialog: ^0.2.4
   google_fonts: ^4.0.4
@@ -38,7 +39,14 @@ dependencies:
   json_path: 0.4.1
   timeago: 3.2.2
   page_transition: 2.0.4
-  vrouter: ^1.2.0+21
+
+
+  image_picker: ^1.0.0
+  flutter_web_auth_2: ^2.1.5
+  flutter_local_notifications: ^15.0.0
+  unifiedpush: ^5.0.0
+  vrouter: ^1.2.1
+  flutter_cache_manager: ^3.3.1
 
 
 
@@ -47,15 +55,22 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^2.0.1
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/logo.png"
+
+
 flutter:
   generate: true
   uses-material-design: true
   assets:
-
     - assets/chat_list/images/tabler_search.svg
     - assets/chat_list/images/user-buttom.png
     - assets/chat_list/images/pepicons-pencil_dots-y.svg
     - assets/chat_list/images/write.svg
     - assets/chat_list/images/prostors.svg
     - assets/fonts/
+    - assets/icon/
+
 

@@ -15,6 +15,7 @@ import 'package:future_loading_dialog/future_loading_dialog.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:matrix/matrix.dart';
+import 'package:vrouter/vrouter.dart';
 //import 'package:matrix_homeserver_recommendations/matrix_homeserver_recommendations.dart';
 
 import '../../config/app_config.dart';
@@ -154,9 +155,9 @@ class HomeserverPickerController extends State<HomeserverPicker> {
 
       if (!ssoSupported && matrix.loginRegistrationSupported == false) {
         //await checkLockKey();
-        context.go('connect');
+        VRouter.of(context).to('login');
       } else {
-        context.go('connect');
+        VRouter.of(context).to('connect');
       }
     } catch (e) {
       setState(() => error = (e).toLocalizedString(context));
@@ -200,12 +201,12 @@ class HomeserverPickerController extends State<HomeserverPicker> {
           checkLockKey();
         } else {
           AppLock.of(context)!.enable();
-          context.go('login');
+          VRouter.of(context).to('login');
         }
       }
     }
     else{
-      context.go('login');
+      VRouter.of(context).to('login');
     }
   }*/
 

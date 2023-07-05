@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:decoder/pages/chat_page/chat_page.dart';
 import 'package:decoder/pages/preference_page/preference_page.dart';
 import 'package:decoder/pages/settings_page/settings_page.dart';
+import 'package:decoder/pages/notification_page/notification_page_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vrouter/vrouter.dart';
 
@@ -41,6 +42,32 @@ class AppRoutes {
       ];
 
   List<VRouteElement> get _settingsRoutes => [
+
+    VWidget(
+        path: 'general',
+      widget:  Container(),
+      buildTransition: _dynamicTransition,
+    ),
+    VWidget(
+      path: '/preference', 
+      widget: PreferencePage(),
+      buildTransition: _dynamicTransition,
+    ),
+    VWidget(
+      path: '/notification', 
+      widget: NotificationPageWidget(),
+      buildTransition: _dynamicTransition,
+    )
+  ];
+
+  List<VRouteElement> get _homeRoutes => [
+    VWidget(path: '/', widget: const LoadingView()),
+    VWidget(
+      path: '/home',
+      widget: const HomeserverPicker(),
+      buildTransition: _fadeTransition,
+      stackedRoutes: [
+
         VWidget(
           path: 'general',
           widget: Container(),

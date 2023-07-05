@@ -47,7 +47,7 @@ class DecoderAppState extends State<DecoderApp> {
   @override
   void initState() {
     super.initState();
-    _initialUrl = widget.clients.any((client) => client.isLogged()) ? '/room' : '/home';
+    _initialUrl = widget.clients.any((client) => client.isLogged()) ? '/rooms' : '/home';
   }
 
   @override

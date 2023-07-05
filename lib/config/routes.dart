@@ -1,4 +1,5 @@
 import 'package:decoder/pages/preference_page/preference_page.dart';
+import 'package:decoder/pages/security_page/security_page.dart';
 import 'package:decoder/pages/settings_page/settings_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vrouter/vrouter.dart';
@@ -43,6 +44,11 @@ class AppRoutes {
       path: '/preference', 
       widget: PreferencePage(),
       buildTransition: _dynamicTransition,
+    ),
+    VWidget(
+      path: '/security', 
+      widget: SecurityPage(),
+      buildTransition: _dynamicTransition
     )
   ];
 

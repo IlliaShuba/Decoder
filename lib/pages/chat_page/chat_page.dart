@@ -78,7 +78,7 @@ class _ChatPage extends State<ChatPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             AppBar(
-              leadingWidth: 192 * fem,
+              leadingWidth: 195 * fem,
               backgroundColor: Color.fromARGB(255, 255, 255, 255),
               leading: Row(
                 children: [
@@ -200,12 +200,11 @@ class _ChatPage extends State<ChatPage> {
               ),
             ),
             BottomAppBar(
-              height: 57 * fhm,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: 15 * fem),
+                    // margin: EdgeInsets.only(left: 15 * fem),
                     child: Padding(
                       padding:
                           EdgeInsets.fromLTRB(8 * fem, 0, 8 * fem, 8 * fhm),
@@ -231,9 +230,9 @@ class _ChatPage extends State<ChatPage> {
                       children: [
                         // Зелений контейнер
                         Container(
-                          margin: EdgeInsets.only(bottom: 15 * fhm),
                           child: Expanded(
                             child: Container(
+                              margin: EdgeInsets.only(bottom: 10 * fhm),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20 * fem),
                                 border: Border.all(color: Color(0xff278664)),
@@ -242,9 +241,10 @@ class _ChatPage extends State<ChatPage> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 20 * fem),
+                          margin: EdgeInsets.fromLTRB(20 * fem, 0, 0, 5 * fhm),
                           height: 50 * fhm,
                           width: 160 * fem,
+                          decoration: BoxDecoration(),
                           child: TextField(
                             onTap: () {
                               setState(() {
@@ -262,13 +262,15 @@ class _ChatPage extends State<ChatPage> {
                                 fontSize: 15 * ffem,
                                 fontWeight: FontWeight.w400,
                                 height: 1.2175 * ffem / fem,
-                                color: Color(0xb279a471),
+                                color: Color.fromARGB(177, 139, 170, 133),
                               ),
+                              fillColor: Colors.transparent,
+                              filled: true,
                             ),
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.fromLTRB(170 * fem, 4 * fhm, 0, 0),
+                          margin: EdgeInsets.fromLTRB(170 * fem, 3 * fhm, 0, 0),
                           width: 40 * fem,
                           height: 40 * fhm,
                           child: IconButton(
@@ -286,20 +288,18 @@ class _ChatPage extends State<ChatPage> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(8 * fem, 0, 8 * fem, 8 * fhm),
-                    child: Ink(
-                      width: 40 * fem,
-                      height: 40 * fhm,
-                      decoration: BoxDecoration(
-                        color: Color(0xff278664),
-                        borderRadius: BorderRadius.circular(20 * fem),
-                      ),
-                      child: IconButton(
-                        onPressed: sendMessage,
-                        icon: Image.asset(
-                          'assets/icon/img-for-send.png',
-                        ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(10 * fem, 1 * fhm, 0, 0),
+                    width: 40 * fem,
+                    height: 40 * fhm,
+                    decoration: BoxDecoration(
+                      color: Color(0xff278664),
+                      borderRadius: BorderRadius.circular(20 * fem),
+                    ),
+                    child: IconButton(
+                      onPressed: sendMessage,
+                      icon: Image.asset(
+                        'assets/icon/img-for-send.png',
                       ),
                     ),
                   ),

@@ -1,10 +1,10 @@
 name: decoder
 description: A new Flutter project.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.6 <3.0.0'
+  sdk: ">=2.19.6 <3.0.0"
 dependencies:
   flutter:
     sdk: flutter
@@ -39,15 +39,13 @@ dependencies:
   timeago: 3.2.2
   page_transition: 2.0.4
 
-
   image_picker: ^1.0.0
   flutter_web_auth_2: ^2.1.5
   flutter_local_notifications: ^15.0.0
   unifiedpush: ^5.0.0
   vrouter: ^1.2.1
   flutter_cache_manager: ^3.3.1
-
-
+  emoji_picker_flutter: ^1.6.1
 
 dev_dependencies:
   flutter_test:
@@ -58,7 +56,6 @@ flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/icon/logo.png"
-
 
 flutter:
   generate: true
@@ -71,5 +68,3 @@ flutter:
     - assets/chat_list/images/prostors.svg
     - assets/fonts/
     - assets/icon/
-
-

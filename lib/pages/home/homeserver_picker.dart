@@ -155,7 +155,7 @@ class HomeserverPickerController extends State<HomeserverPicker> {
 
       if (!ssoSupported && matrix.loginRegistrationSupported == false) {
         //await checkLockKey();
-        VRouter.of(context).to('connect');
+        VRouter.of(context).to('login');
       } else {
         VRouter.of(context).to('connect');
       }

@@ -139,16 +139,17 @@ class LoginView extends StatelessWidget {
                             hintText: L10n.of(context)!.username,
                             border: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                color: Color(0xffababab),
+                                color: Color(0xff278665),
+                                width: 2,
                               ),
-                              borderRadius: BorderRadius.circular(3 * fem),
+                              borderRadius: BorderRadius.circular(10 * fem),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                color: AppConfig.primaryColor,
+                                color: Color(0xff278664),
                                 width: 2,
                               ),
-                              borderRadius: BorderRadius.circular(3 * fem),
+                              borderRadius: BorderRadius.circular(10 * fem),
                             ),
                             contentPadding: EdgeInsets.fromLTRB(
                               12 * fem,
@@ -192,7 +193,7 @@ class LoginView extends StatelessWidget {
                             hintText: L10n.of(context)!.password,
                             border: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                color: Color(0xff278664),
+                                color: Color(0xff278665),
                               ),
                               borderRadius: BorderRadius.circular(10*fem),
                             ),
@@ -218,7 +219,7 @@ class LoginView extends StatelessWidget {
                                   controller.showPassword
                                       ? Icons.visibility
                                       : Icons.visibility_off,
-                                  color: AppConfig.primaryColor,
+                                  color: Color(0xff278664),
                                 ),
                               ),
                             ),
@@ -237,8 +238,8 @@ class LoginView extends StatelessWidget {
                         // btn2sE (1:1079)
                         margin: EdgeInsets.fromLTRB(
                             89 * fem, 0 * fem, 90 * fem, 0 * fem),
-                        width: double.infinity,
-                        height: 40 * fem,
+                        width: 141 * fem,
+                        height: 43 * fem,
                         decoration: BoxDecoration(
                           color: Color(0xff278664),
                           borderRadius: BorderRadius.circular(20 * fem),
@@ -247,9 +248,10 @@ class LoginView extends StatelessWidget {
                           onPressed:
                               controller.loading ? null : controller.login,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: controller.isEmpty
-                                ? const Color(0xff7c7c7c)
-                                : AppConfig.primaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(23.0), // Задайте бажане значення радіусу
+                            ),
+                            backgroundColor: const Color(0xff278664),
                             elevation: 6.0,
                             textStyle: SafeGoogleFont(
                               'Inter',
@@ -260,12 +262,12 @@ class LoginView extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            L10n.of(context)!.login,
+                            L10n.of(context)!.next,
                             style: SafeGoogleFont(
                               'Inter',
-                              fontSize: 24 * fhm,
+                              fontSize: 16 * fhm,
                               fontWeight: FontWeight.w400,
-                              height: 1.2125 * fhm,
+                              height: 0.85 * fhm,
                               color: const Color(0xffffffff),
                             ),
                           ),

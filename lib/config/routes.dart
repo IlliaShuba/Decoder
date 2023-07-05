@@ -1,5 +1,6 @@
 import 'package:decoder/pages/preference_page/preference_page.dart';
 import 'package:decoder/pages/settings_page/settings_page.dart';
+import 'package:decoder/pages/notification_page/notification_page_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vrouter/vrouter.dart';
 
@@ -42,6 +43,11 @@ class AppRoutes {
     VWidget(
       path: '/preference', 
       widget: PreferencePage(),
+      buildTransition: _dynamicTransition,
+    ),
+    VWidget(
+      path: '/notification', 
+      widget: NotificationPageWidget(),
       buildTransition: _dynamicTransition,
     )
   ];

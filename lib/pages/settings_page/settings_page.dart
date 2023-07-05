@@ -127,6 +127,7 @@ class _SettingsPage extends State<SettingsPage> {
             ),
             GestureDetector(
               onTap: () {
+                VRouter.of(context).to('/notification');
               }, 
               child:  Container(
                 padding: EdgeInsets.fromLTRB(24*fem, 15*fem, 0*fem, 15*fem),

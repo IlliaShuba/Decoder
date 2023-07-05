@@ -1,3 +1,4 @@
+import 'package:decoder/pages/chat_page/chat_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vrouter/vrouter.dart';
 
@@ -24,6 +25,10 @@ class AppRoutes {
           widget: ChatList(),
         ),
         VWidget(
+          path: '/chat-page',
+          widget: ChatPage(),
+        ),
+        VWidget(
           path: '/settings',
           widget: Container(),
           stackedRoutes: _settingsRoutes,
@@ -31,28 +36,18 @@ class AppRoutes {
       ];
 
   List<VRouteElement> get _settingsRoutes => [
-    VWidget(
-        path: 'general',
-      widget:  Container(),
-      buildTransition: _dynamicTransition,
-    ),
-  ];
+        VWidget(
+          path: 'general',
+          widget: Container(),
+          buildTransition: _dynamicTransition,
+        ),
+      ];
 
   List<VRouteElement> get _homeRoutes => [
-    VWidget(path: '/', widget: const LoadingView()),
-    VWidget(
-      path: '/home',
-      widget: const HomeserverPicker(),
-      buildTransition: _fadeTransition,
-      stackedRoutes: [
+        VWidget(path: '/', widget: const LoadingView()),
         VWidget(
-          path: 'login',
-          widget: const Login(),
-          buildTransition: _fadeTransition,
-        ),
-        VWidget(
-          path: 'connect',
-          widget: const ConnectPage(),
+          path: '/home',
+          widget: const HomeserverPicker(),
           buildTransition: _fadeTransition,
           stackedRoutes: [
             VWidget(
@@ -60,11 +55,21 @@ class AppRoutes {
               widget: const Login(),
               buildTransition: _fadeTransition,
             ),
+            VWidget(
+              path: 'connect',
+              widget: const ConnectPage(),
+              buildTransition: _fadeTransition,
+              stackedRoutes: [
+                VWidget(
+                  path: 'login',
+                  widget: const Login(),
+                  buildTransition: _fadeTransition,
+                ),
+              ],
+            ),
           ],
         ),
-      ],
-    ),
-  ];
+      ];
 
   FadeTransition Function(dynamic, dynamic, dynamic)? get _dynamicTransition =>
       columnMode ? _fadeTransition : null;

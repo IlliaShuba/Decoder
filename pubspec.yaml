@@ -1,10 +1,10 @@
 name: decoder
 description: A new Flutter project.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.6 <3.0.0'
+  sdk: ">=2.19.6 <3.0.0"
 
 dependencies:
   flutter:
@@ -39,7 +39,7 @@ dependencies:
   unifiedpush: ^5.0.0
   vrouter: ^1.2.1
   flutter_cache_manager: ^3.3.1
-
+  emoji_picker_flutter: ^1.6.1
 
 dev_dependencies:
   flutter_test:
@@ -51,11 +51,9 @@ flutter_launcher_icons:
   ios: true
   image_path: "assets/icon/logo.png"
 
-
 flutter:
   generate: true
   uses-material-design: true
 
   assets:
     - assets/icon/
-

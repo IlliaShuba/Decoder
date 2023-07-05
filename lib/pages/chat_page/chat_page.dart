@@ -95,7 +95,7 @@ class _ChatPage extends State<ChatPage> {
                         );
                       },
                       icon: Image.asset(
-                        'assets/images/backbutton-nJg.png',
+                        'assets/icon/backbutton.png',
                         width: 25 * fem,
                         height: 25 * fhm,
                       ),
@@ -105,7 +105,7 @@ class _ChatPage extends State<ChatPage> {
                     child: IconButton(
                       onPressed: () {},
                       icon: Image.asset(
-                        'assets/images/user-avatar.png',
+                        'assets/icon/user-avatar.png',
                       ),
                       iconSize: 35 * fem,
                     ),
@@ -139,7 +139,7 @@ class _ChatPage extends State<ChatPage> {
                               child: IconButton(
                                 onPressed: () {},
                                 icon: Image.asset(
-                                  'assets/images/ph-video-camera-fill.png',
+                                  'assets/icon/ph-video-camera-fill.png',
                                   width: 25 * fem,
                                   height: 25 * fhm,
                                 ),
@@ -149,7 +149,7 @@ class _ChatPage extends State<ChatPage> {
                               child: IconButton(
                                 onPressed: () {},
                                 icon: Image.asset(
-                                  'assets/images/ic-baseline-phone.png',
+                                  'assets/icon/ic-baseline-phone.png',
                                   width: 20 * fem,
                                   height: 20 * fhm,
                                 ),
@@ -159,7 +159,7 @@ class _ChatPage extends State<ChatPage> {
                               child: IconButton(
                                 onPressed: () {},
                                 icon: Image.asset(
-                                  'assets/images/pepicons-pencil-dots-y.png',
+                                  'assets/icon/pepicons-pencil-dots-y.png',
                                   width: 25 * fem,
                                   height: 25 * fhm,
                                 ),
@@ -219,7 +219,7 @@ class _ChatPage extends State<ChatPage> {
                         child: IconButton(
                           onPressed: () => pickImage(ImageSource.gallery),
                           icon: Image.asset(
-                            'assets/images/white-plus.png',
+                            'assets/icon/white-plus.png',
                           ),
                         ),
                       ),
@@ -298,7 +298,7 @@ class _ChatPage extends State<ChatPage> {
                       child: IconButton(
                         onPressed: sendMessage,
                         icon: Image.asset(
-                          'assets/images/img-for-send.png',
+                          'assets/icon/img-for-send.png',
                         ),
                       ),
                     ),

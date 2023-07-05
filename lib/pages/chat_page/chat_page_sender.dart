@@ -32,7 +32,7 @@ class _ChatPageSender extends State<ChatPageSender> {
                   width: 20 * fem,
                   height: 20 * fem,
                   child: Image.asset(
-                    'assets/images/user-avatar-N3n.png',
+                    'assets/icon/user-avatar.png',
                     fit: BoxFit.cover,
                   ),
                 ),

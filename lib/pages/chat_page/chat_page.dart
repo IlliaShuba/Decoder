@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:decoder/pages/chat_list/chat_list_item.dart';
 import 'package:decoder/pages/chat_page/chat_page_date_up.dart';
 import 'package:decoder/pages/chat_page/chat_page_receiver.dart';
 import 'package:decoder/pages/chat_page/chat_page_sender.dart';
@@ -12,6 +13,9 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:vrouter/vrouter.dart';
 
 class ChatPage extends StatefulWidget {
+  final String userName;
+
+  ChatPage({required this.userName});
   @override
   // ignore: library_private_types_in_public_api
   _ChatPage createState() => _ChatPage();
@@ -112,7 +116,7 @@ class _ChatPage extends State<ChatPage> {
                   ),
                   Container(
                     child: Text(
-                      'Костащучка',
+                      '${widget.userName}',
                       style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontSize: 14 * ffem,

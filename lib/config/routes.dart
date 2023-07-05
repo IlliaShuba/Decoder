@@ -31,7 +31,9 @@ class AppRoutes {
         ),
         VWidget(
           path: '/chat-page',
-          widget: ChatPage(),
+          widget: ChatPage(
+            userName: '',
+          ),
         ),
         VWidget(
           path: '/settings',

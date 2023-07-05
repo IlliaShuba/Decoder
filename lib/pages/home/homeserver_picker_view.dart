@@ -30,7 +30,7 @@ class HomeserverPickerView extends StatelessWidget {
           children: [
             Container(
               // logoALc (1:1044)
-              margin: EdgeInsets.fromLTRB(77*fem, 0*fhm, 76*fem, 25*fhm),
+              margin: EdgeInsets.fromLTRB(77*fem, 0*fhm, 76*fem, 22*fhm),
               width: double.infinity,
               height: 164*fhm,
               child: Stack(

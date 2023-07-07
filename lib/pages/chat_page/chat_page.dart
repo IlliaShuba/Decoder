@@ -112,7 +112,7 @@ class _ChatPage extends State<ChatPage> {
                   ),
                   Container(
                     child: Text(
-                      'Костащучка',
+                      'User',
                       style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontSize: 14 * ffem,

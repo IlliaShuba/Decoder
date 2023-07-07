@@ -253,6 +253,23 @@ class _ChatListViewState extends State<ChatListView> {
                             ],
                           ),
                         ),
+                        PopupMenuItem<String>(
+                          value: 'logout',
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 8.0),
+                              Text(
+                                  'Вийти',
+                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF675F5F),
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        
                       ],
                       onSelected: (String value) {
                         // Handle menu item selection here
@@ -260,7 +277,11 @@ class _ChatListViewState extends State<ChatListView> {
                           print('Edit option selected...');
                         } else if (value == 'filterAscending') {
                           print('Delete option selected...');
+                        }  else if(value == 'logout') {
+                          
                         }
+
+
                       },
                     )
                   ),

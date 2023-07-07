@@ -60,7 +60,7 @@ class _ChatPageSender extends State<ChatPageSender> {
                           margin: EdgeInsets.fromLTRB(
                               10 * fem, 2 * fhm, 5 * fem, 4 * fhm),
                           child: Text(
-                            'Ірка Костащук',
+                            'User',
                             style: SafeGoogleFont(
                               'Inter',
                               fontSize: 13 * ffem,

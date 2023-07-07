@@ -1,3 +1,4 @@
+import 'package:decoder/pages/chat_page/chat_page.dart';
 import 'package:decoder/pages/settings_page/settings_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../widgets/matrix.dart';
@@ -48,8 +49,6 @@ class _ChatListViewState extends State<ChatListView> {
   //         : selectedRoomIds.add(roomId),
   //   );
   // }
-
-
 
   String? activeSpaceId;
 
@@ -119,7 +118,6 @@ class _ChatListViewState extends State<ChatListView> {
   SearchUserDirectoryResponse? userSearchResult;
   QueryPublicRoomsResponse? roomSearchResult;
 
-
   final ScrollController scrollController = ScrollController();
   final ValueNotifier<bool> scrolledToTop = ValueNotifier(true);
 
@@ -129,7 +127,6 @@ class _ChatListViewState extends State<ChatListView> {
       scrolledToTop.value = newScrolledToTop;
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -150,12 +147,12 @@ class _ChatListViewState extends State<ChatListView> {
                   VRouter.of(context).to('/settings');
                 },
                 icon: Image.asset(
-                'assets/chat_list/images/user-buttom.png',
-                width: 40.0,
-                height: 40.0,
-                //fit: BoxFit.cover,
+                  'assets/chat_list/images/user-buttom.png',
+                  width: 40.0,
+                  height: 40.0,
+                  //fit: BoxFit.cover,
+                ),
               ),
-          ),
             ),
             title: Align(
               alignment: Alignment.center,
@@ -166,30 +163,30 @@ class _ChatListViewState extends State<ChatListView> {
                   borderRadius: BorderRadius.circular(15.0),
                   color: Color(0xFFF5F5F5),
                 ),
-                child:  TextField(
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontFamily: 'Roboto',
-                  decoration: TextDecoration.none,
+                child: TextField(
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontFamily: 'Roboto',
+                    decoration: TextDecoration.none,
+                  ),
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(5.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      borderSide: BorderSide(color: Color(0xFFF5F5F5)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      borderSide: BorderSide(color: Color(0xFFF5F5F5)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      borderSide: BorderSide(color: Color(0xFFF5F5F5)),
+                    ),
+                  ),
+                  // Customize other properties of the TextField as needed
                 ),
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(5.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    borderSide: BorderSide(color: Color(0xFFF5F5F5)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    borderSide: BorderSide(color: Color(0xFFF5F5F5)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    borderSide: BorderSide(color: Color(0xFFF5F5F5)),
-                  ),
-                ),
-                // Customize other properties of the TextField as needed
               ),
-            ),
             ),
             actions: [
               Row(
@@ -203,7 +200,8 @@ class _ChatListViewState extends State<ChatListView> {
                           showSearchField = !showSearchField;
                         });
                       },
-                      icon: SvgPicture.asset('assets/chat_list/images/tabler_search.svg'),
+                      icon: SvgPicture.asset(
+                          'assets/chat_list/images/tabler_search.svg'),
                       iconSize: 25.0,
                       splashRadius: 20.0,
                       color: Colors.white,
@@ -215,62 +213,66 @@ class _ChatListViewState extends State<ChatListView> {
                   ),
                   //SizedBox(width: 10.0), // Add a SizedBox with width 10.0 for spacing
                   Container(
-                    alignment: Alignment.centerRight,
-                    //padding: EdgeInsets.only(right: 20.0, top: 15.0, bottom: 0.0),
-                    child: PopupMenuButton<String>(
-                      offset: Offset(0, 40),
-                      icon: SvgPicture.asset('assets/chat_list/images/pepicons-pencil_dots-y.svg'),
-                      itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                        PopupMenuItem<String>(
-                          value: 'filterByActivity',
-                          child: Row(
-                            children: [
-                              const SizedBox(width: 8.0),
-                              Text(
-                                'Упорядкувати\n за активністю',
-                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Montserrat',
-                                  color: Color(0xFF675F5F),
-                                  fontSize: 14,
+                      alignment: Alignment.centerRight,
+                      //padding: EdgeInsets.only(right: 20.0, top: 15.0, bottom: 0.0),
+                      child: PopupMenuButton<String>(
+                        offset: Offset(0, 40),
+                        icon: SvgPicture.asset(
+                            'assets/chat_list/images/pepicons-pencil_dots-y.svg'),
+                        itemBuilder: (BuildContext context) =>
+                            <PopupMenuEntry<String>>[
+                          PopupMenuItem<String>(
+                            value: 'filterByActivity',
+                            child: Row(
+                              children: [
+                                const SizedBox(width: 8.0),
+                                Text(
+                                  'Упорядкувати\n за активністю',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF675F5F),
+                                        fontSize: 14,
+                                      ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'filterAscending',
-                          child: Row(
-                            children: [
-                              const SizedBox(width: 8.0),
-                              Text(
+                          PopupMenuItem<String>(
+                            value: 'filterAscending',
+                            child: Row(
+                              children: [
+                                const SizedBox(width: 8.0),
+                                Text(
                                   'Упорядкувати А-Я',
-                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Montserrat',
-                                  color: Color(0xFF675F5F),
-                                  fontSize: 14,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF675F5F),
+                                        fontSize: 14,
+                                      ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                      onSelected: (String value) {
-                        // Handle menu item selection here
-                        if (value == 'filterByActivity') {
-                          print('Edit option selected...');
-                        } else if (value == 'filterAscending') {
-                          print('Delete option selected...');
-                        }
-                      },
-                    )
-                  ),
+                        ],
+                        onSelected: (String value) {
+                          // Handle menu item selection here
+                          if (value == 'filterByActivity') {
+                            print('Edit option selected...');
+                          } else if (value == 'filterAscending') {
+                            print('Delete option selected...');
+                          }
+                        },
+                      )),
                 ],
               ),
             ],
             elevation: 8.0,
           ),
         ),
-
         body: SafeArea(
           top: true,
           child: Container(
@@ -300,109 +302,189 @@ class _ChatListViewState extends State<ChatListView> {
                 ),
                 Expanded(
                   child: ListView(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  controller: scrollController,
-                  children: [
-                    Divider(
-                      color: Color(0x3375704E),
-                      thickness: 1,
-                    ),
-                    ChatListItem(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    controller: scrollController,
+                    children: [
+                      Divider(
+                        color: Color(0x3375704E),
+                        thickness: 1,
+                      ),
+                      ChatListItem(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChatPage(userName: "Anna"),
+                            ),
+                          );
+                        },
                         userName: "Anna",
                         message: "Привіт, як справи???",
-                        date: "5 липня"
-                    ),
-                    Divider(
-                      color: Color(0x3375704E),
-                      thickness: 1,
-                    ),
-                    ChatListItem(
-                        userName: "Володимир",
-                        message: "Захід розпочнемо одразу",
-                        date: "4 липня"
-                    ),
-                    Divider(
-                      color: Color(0x3375704E),
-                      thickness: 1,
-                    ),
-                    ChatListItem(
-                        userName: "Balinchenko",
-                        message: "Гаразд",
-                        date: "4 липня"
-                    ),
-                    Divider(
-                      color: Color(0x3375704E),
-                      thickness: 1,
-                    ),
-                    ChatListItem(
-                        userName: "olena",
-                        message: "все добре",
-                        date: "4 липня"
-                    ),
-                    Divider(
-                      color: Color(0x3375704E),
-                      thickness: 1,
-                    ),
-                    ChatListItem(
-                        userName: "Aртем",
-                        message: "Працює!",
-                        date: "3 липня"
-                    ),
-                    Divider(
-                      color: Color(0x3375704E),
-                      thickness: 1,
-                    ),
-                    ChatListItem(
-                        userName: "Alex",
-                        message: "Тестуємо",
-                        date: "3 липня"
-                    ),
-                    Divider(
-                      color: Color(0x3375704E),
-                      thickness: 1,
-                    ),
-                    ChatListItem(
-                        userName: "Інесса",
-                        message: "ок",
-                        date: "3 липня"
-                    ),
-                    Divider(
-                      color: Color(0x3375704E),
-                      thickness: 1,
-                    ),
-                    ChatListItem(
-                        userName: "Anna",
-                        message: "Привіт, як справи???",
-                        date: "3 липня"
-                    ),
-                    Divider(
-                      color: Color(0x3375704E),
-                      thickness: 1,
-                    ),
-                    ChatListItem(
-                        userName: "Danyliuk",
-                        message: "Привіт",
-                        date: "3 липня"
-                    ),
-                    Divider(
-                      color: Color(0x3375704E),
-                      thickness: 1,
-                    ),
-                    ChatListItem(
-                        userName: "Nadia Bezruchko",
-                        message: "Ок",
-                        date: "3 липня"
-                    ),
-                    Divider(
-                      color: Color(0x3375704E),
-                      thickness: 1,
-                    ),
-
-                  ],
-                ),
-                )],
+                        date: "5 липня",
+                      ),
+                      Divider(
+                        color: Color(0x3375704E),
+                        thickness: 1,
+                      ),
+                      ChatListItem(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ChatPage(userName: "Володимир"),
+                              ),
+                            );
+                          },
+                          userName: "Володимир",
+                          message: "Захід розпочнемо одразу",
+                          date: "4 липня"),
+                      Divider(
+                        color: Color(0x3375704E),
+                        thickness: 1,
+                      ),
+                      ChatListItem(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ChatPage(userName: "Balinchenko"),
+                              ),
+                            );
+                          },
+                          userName: "Balinchenko",
+                          message: "Гаразд",
+                          date: "4 липня"),
+                      Divider(
+                        color: Color(0x3375704E),
+                        thickness: 1,
+                      ),
+                      ChatListItem(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ChatPage(userName: "olena"),
+                              ),
+                            );
+                          },
+                          userName: "olena",
+                          message: "все добре",
+                          date: "4 липня"),
+                      Divider(
+                        color: Color(0x3375704E),
+                        thickness: 1,
+                      ),
+                      ChatListItem(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ChatPage(userName: "Артем"),
+                              ),
+                            );
+                          },
+                          userName: "Aртем",
+                          message: "Працює!",
+                          date: "3 липня"),
+                      Divider(
+                        color: Color(0x3375704E),
+                        thickness: 1,
+                      ),
+                      ChatListItem(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ChatPage(userName: "Alex"),
+                              ),
+                            );
+                          },
+                          userName: "Alex",
+                          message: "Тестуємо",
+                          date: "3 липня"),
+                      Divider(
+                        color: Color(0x3375704E),
+                        thickness: 1,
+                      ),
+                      ChatListItem(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ChatPage(userName: "Інесса"),
+                              ),
+                            );
+                          },
+                          userName: "Інесса",
+                          message: "ок",
+                          date: "3 липня"),
+                      Divider(
+                        color: Color(0x3375704E),
+                        thickness: 1,
+                      ),
+                      ChatListItem(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ChatPage(userName: "Anna"),
+                              ),
+                            );
+                          },
+                          userName: "Anna",
+                          message: "Привіт, як справи???",
+                          date: "3 липня"),
+                      Divider(
+                        color: Color(0x3375704E),
+                        thickness: 1,
+                      ),
+                      ChatListItem(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ChatPage(userName: "Danyliuk"),
+                              ),
+                            );
+                          },
+                          userName: "Danyliuk",
+                          message: "Привіт",
+                          date: "3 липня"),
+                      Divider(
+                        color: Color(0x3375704E),
+                        thickness: 1,
+                      ),
+                      ChatListItem(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ChatPage(userName: "Nadia"),
+                              ),
+                            );
+                          },
+                          userName: "Nadia",
+                          message: "Ок",
+                          date: "3 липня"),
+                      Divider(
+                        color: Color(0x3375704E),
+                        thickness: 1,
+                      ),
+                    ],
+                  ),
+                )
+              ],
             ),
           ),
         ),
@@ -412,19 +494,23 @@ class _ChatListViewState extends State<ChatListView> {
           children: [
             FloatingActionButton(
               onPressed: () {
-                if (activeFilter == ActiveFilter.spaces){
+                if (activeFilter == ActiveFilter.spaces) {
                   VRouter.of(context).to('/newspace');
                 }
               },
-              child: SvgPicture.asset('assets/chat_list/images/prostors.svg',
+              child: SvgPicture.asset(
+                'assets/chat_list/images/prostors.svg',
                 width: 25.0,
                 height: 25.0,
               ),
               backgroundColor: Colors.white,
               elevation: 5,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
             ),
-            SizedBox(height: 10.0,), // Add spacing between FABs
+            SizedBox(
+              height: 10.0,
+            ), // Add spacing between FABs
             PopupMenuButton<ActiveFilter>(
               offset: Offset(-65, 0),
               onSelected: (filter) {
@@ -456,23 +542,23 @@ class _ChatListViewState extends State<ChatListView> {
                   PopupMenuItem<ActiveFilter>(
                     value: ActiveFilter.messages,
                     child: Text(
-                        'Нова бесіда',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Montserrat',
-                        color: Color(0xFF675F5F),
-                        fontSize: 14,
-                      ),
+                      'Нова бесіда',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Montserrat',
+                            color: Color(0xFF675F5F),
+                            fontSize: 14,
+                          ),
                     ),
                   ),
                   PopupMenuItem<ActiveFilter>(
                     value: ActiveFilter.groups,
                     child: Text(
-                        'Нова група',
+                      'Нова група',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Montserrat',
-                        color: Color(0xFF675F5F),
-                        fontSize: 14,
-                      ),
+                            fontFamily: 'Montserrat',
+                            color: Color(0xFF675F5F),
+                            fontSize: 14,
+                          ),
                     ),
                   ),
                 ];

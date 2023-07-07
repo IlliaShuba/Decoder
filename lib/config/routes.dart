@@ -61,26 +61,6 @@ class AppRoutes {
   ];
 
   List<VRouteElement> get _homeRoutes => [
-    VWidget(path: '/', widget: const LoadingView()),
-    VWidget(
-      path: '/home',
-      widget: const HomeserverPicker(),
-      buildTransition: _fadeTransition,
-      stackedRoutes: [
-
-        VWidget(
-          path: 'general',
-          widget: Container(),
-          buildTransition: _dynamicTransition,
-        ),
-        VWidget(
-          path: '/preference',
-          widget: PreferencePage(),
-          buildTransition: _dynamicTransition,
-        )
-      ];
-
-  List<VRouteElement> get _homeRoutes => [
         VWidget(path: '/', widget: const LoadingView()),
         VWidget(
           path: '/home',

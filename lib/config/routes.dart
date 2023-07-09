@@ -8,6 +8,9 @@ import 'package:decoder/pages/security_page/security_page.dart';
 import 'package:decoder/pages/security_page/sessionControl_page.dart';
 import 'package:decoder/pages/settings_page/settings_page.dart';
 import 'package:decoder/pages/notification_page/notification_page_view.dart';
+import 'package:decoder/pages/userInfo_page/userInfo_page.dart';
+import 'package:decoder/pages/userInfo_page/userNotification_page.dart';
+import 'package:decoder/pages/userInfo_page/userSettings_page.dart';
 import 'package:decoder/pages/voiceAndVideo_page/voiceAndVideo_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vrouter/vrouter.dart';
@@ -43,7 +46,7 @@ class AppRoutes {
           path: '/settings',
           widget: SettingsPage(),
           stackedRoutes: _settingsRoutes,
-        ),
+        )
       ];
 
   List<VRouteElement> get _settingsRoutes => [
@@ -86,7 +89,22 @@ class AppRoutes {
       path: '/session-control',
       widget: SessionControlPage(),
       buildTransition: _dynamicTransition
-    )
+    ),
+    VWidget(
+      path: '/user-info',
+      widget: UserInfoPage(),
+      buildTransition: _dynamicTransition
+    ),
+    VWidget(
+      path: '/user-settings',
+      widget: UserSettingsPage(),
+      buildTransition: _dynamicTransition
+    ),
+    VWidget(
+      path: '/user-notification',
+      widget: UserNotificationPage(),
+      buildTransition: _dynamicTransition
+    ),
   ];
 
 

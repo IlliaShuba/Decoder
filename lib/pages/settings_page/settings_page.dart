@@ -87,7 +87,7 @@ class _SettingsPage extends State<SettingsPage> {
 
             GestureDetector(
               onTap: () {
-                
+                  
                 },
                 child:  Container(
                   padding: EdgeInsets.fromLTRB(24*fem, 15*fem, 0*fem, 15*fem),

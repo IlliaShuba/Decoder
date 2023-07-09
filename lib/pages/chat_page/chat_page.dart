@@ -154,7 +154,9 @@ class _ChatPage extends State<ChatPage> {
                             ),
                             Container(
                               child: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  VRouter.of(context).to('/user-info');
+                                },
                                 icon: Image.asset(
                                   'assets/icon/pepicons-pencil-dots-y.png',
                                   width: 25 * fem,

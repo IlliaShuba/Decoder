@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:decoder/pages/chat_list/chat_list_item.dart';
 import 'package:decoder/pages/chat_page/chat_page_date_up.dart';
 import 'package:decoder/pages/chat_page/chat_page_receiver.dart';
 import 'package:decoder/pages/chat_page/chat_page_sender.dart';
@@ -12,6 +13,9 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:vrouter/vrouter.dart';
 
 class ChatPage extends StatefulWidget {
+  final String userName;
+
+  ChatPage({required this.userName});
   @override
   // ignore: library_private_types_in_public_api
   _ChatPage createState() => _ChatPage();
@@ -110,9 +114,10 @@ class _ChatPage extends State<ChatPage> {
                   SizedBox(
                     width: 4 * fem,
                   ),
-                  Container(
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
                     child: Text(
-                      'User',
+                      '${widget.userName}',
                       style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontSize: 14 * ffem,
@@ -180,9 +185,14 @@ class _ChatPage extends State<ChatPage> {
                     children: [
                       // СПІВРОЗМОВНИК!!!!!!!!!!!!!
                       ChatPageDateUp(),
-                      ChatPageSender(text: 'Text'),
-                      ChatPageSender(text: 'Text'),
-                      ChatPageSender(text: 'Text'),
+                      ChatPageSender(
+                          text: 'Привіт, як справи?',
+                          senderName: widget.userName),
+                      ChatPageSender(
+                          text: 'Сподіваюсь все добре',
+                          senderName: widget.userName),
+                      ChatPageSender(
+                          text: 'Як твої рідні?', senderName: widget.userName),
                       SizedBox(
                         height: 10 * fem,
                       ),

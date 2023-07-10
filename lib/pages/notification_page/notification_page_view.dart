@@ -19,7 +19,9 @@ class NotificationPageWidget extends StatefulWidget {
 
 class _NotificationPageWidgetState extends State<NotificationPageWidget> {
   late NotificationPageModel _model;
-
+  bool isNotificationAcc = false;
+  bool isNotificationPhone = false;
+  bool isNotificationEmail = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -49,7 +51,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, _) => [
             SliverAppBar(
-              pinned: false,
+              pinned: true,
               floating: false,
               backgroundColor: Colors.white,
               automaticallyImplyLeading: false,
@@ -104,8 +106,9 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Montserrat',
-                                  color: Color(0xFF278664),
-                                  fontSize: 15.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.0,
                                 ),
                           ),
                         ),
@@ -114,7 +117,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                           children: [
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  20.0, 0.0, 0.0, 0.0),
+                                  20.0, 10.0, 0.0, 0.0),
                               child: Text(
                                 'Увімкнути сповіщення для\n цього облікового запису',
                                 style: FlutterFlowTheme.of(context)
@@ -126,23 +129,23 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                                     ),
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  65.0, 0.0, 0.0, 0.0),
-                              child: Switch.adaptive(
-                                value: _model.switchValue ??= true,
-                                onChanged: (newValue) async {
-                                  setState(
-                                      () => _model.switchValue = newValue!);
+                            Container(
+                              margin: EdgeInsets.only(left: 60),
+                              child: Switch(
+                                activeTrackColor: Color(0xff278664),
+                                thumbColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+                                  return const Color.fromARGB(255, 255, 255, 255);
+                                }),
+                                  
+                                  
+                                value: isNotificationAcc,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isNotificationAcc = value; 
+                                  });
                                 },
-                                activeColor: Color(0xFFBFBFBF),
-                                activeTrackColor: Color(0xFFEDEDED),
-                                inactiveTrackColor:
-                                    FlutterFlowTheme.of(context).alternate,
-                                inactiveThumbColor:
-                                    FlutterFlowTheme.of(context).secondaryText,
                               ),
-                            ),
+                            )
                           ],
                         ),
                         Row(
@@ -150,7 +153,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                           children: [
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  20.0, 0.0, 0.0, 0.0),
+                                  20.0, 10.0, 0.0, 0.0),
                               child: Text(
                                 'Увімкнути сповіщення для\n цього пристрою',
                                 style: FlutterFlowTheme.of(context)
@@ -162,28 +165,28 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                                     ),
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  65.0, 0.0, 0.0, 0.0),
-                              child: Switch.adaptive(
-                                value: _model.switchValue ??= true,
-                                onChanged: (newValue) async {
-                                  setState(
-                                      () => _model.switchValue = newValue!);
+                            Container(
+                              margin: EdgeInsets.only(left: 60),
+                              child: Switch(
+                                activeTrackColor: Color(0xff278664),
+                                thumbColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+                                  return const Color.fromARGB(255, 255, 255, 255);
+                                }),
+                                  
+                                  
+                                value: isNotificationPhone,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isNotificationPhone = value; 
+                                  });
                                 },
-                                activeColor: Color(0xFFBFBFBF),
-                                activeTrackColor: Color(0xFFEDEDED),
-                                inactiveTrackColor:
-                                    FlutterFlowTheme.of(context).alternate,
-                                inactiveThumbColor:
-                                    FlutterFlowTheme.of(context).secondaryText,
                               ),
-                            ),
+                            )
                           ],
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              20.0, 0.0, 0.0, 0.0),
+                              20.0, 10.0, 0.0, 0.0),
                           child: Text(
                             'Типові сповіщення',
                             style: FlutterFlowTheme.of(context)
@@ -196,7 +199,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                           ),
                         ),Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              20.0, 0.0, 0.0, 0.0),
+                              20.0, 10.0, 0.0, 0.0),
                           child: Text(
                             'Згадки та ключові слова',
                             style: FlutterFlowTheme.of(context)
@@ -210,7 +213,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              20.0, 0.0, 0.0, 0.0),
+                              20.0, 10.0, 0.0, 0.0),
                           child: Text(
                             'Інше',
                             style: FlutterFlowTheme.of(context)
@@ -228,15 +231,16 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                         ),
                         Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                                  20.0, 0.0, 0.0, 0.0),
+                                  20.0, 10.0, 0.0, 0.0),
                           child: Text(
                               'Сповіщення е-поштою',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                   .override(
                                     fontFamily: 'Montserrat',
-                                    color: Color(0xFF278664),
-                                    fontSize: 15.0,
+                                    color: Colors.black,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),                        
@@ -247,7 +251,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
+                                  padding: EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 0.0, 0.0),
                                   child: Text(
                                     'Увімкнути сповіщення\nе-поштою для',
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -271,19 +275,23 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                                 ),
                               ],
                             ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(105.0, 0.0, 0.0, 0.0),
-                              child: Switch.adaptive(
-                                value: _model.switchValue ??= true,
-                                onChanged: (newValue) async {
-                                  setState(() => _model.switchValue = newValue!);
+                            Container(
+                              margin: EdgeInsets.only(left: 100),
+                              child: Switch(
+                                activeTrackColor: Color(0xff278664),
+                                thumbColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+                                  return const Color.fromARGB(255, 255, 255, 255);
+                                }),
+                                  
+                                  
+                                value: isNotificationEmail,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isNotificationEmail = value; 
+                                  });
                                 },
-                                activeColor: Color(0xFFBFBFBF),
-                                activeTrackColor: Color(0xFFEDEDED),
-                                inactiveTrackColor: FlutterFlowTheme.of(context).alternate,
-                                inactiveThumbColor: FlutterFlowTheme.of(context).secondaryText,
                               ),
-                            ),
+                            )
                           ],
                         ),                   
                         Divider(
@@ -292,15 +300,16 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              20.0, 0.0, 0.0, 0.0),
+                              20.0, 10.0, 0.0, 0.0),
                           child: Text(
                             'Налаштування сповіщень',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Montserrat',
-                                  color: Color(0xFF278664),
-                                  fontSize: 15.0,
+                                  color: Colors.black,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w600,
                                 ),
                           ),
                         ),
@@ -309,7 +318,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                           children: [
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  20.0, 0.0, 0.0, 0.0),
+                                  20.0, 10.0, 0.0, 0.0),
                               child: Text(
                                 'Метод сповіщення',
                                 style: FlutterFlowTheme.of(context)
@@ -340,7 +349,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                           children: [
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  20.0, 0.0, 0.0, 0.0),
+                                  20.0, 10.0, 0.0, 0.0),
                               child: Text(
                                 'Налаштування гучних сповіщень',
                                 style: FlutterFlowTheme.of(context)
@@ -371,7 +380,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                           children: [
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  20.0, 0.0, 0.0, 0.0),
+                                  20.0, 10.0, 0.0, 0.0),
                               child: Text(
                                 'Налаштування тихих сповіщень',
                                 style: FlutterFlowTheme.of(context)
@@ -402,7 +411,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                           children: [
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  20.0, 0.0, 0.0, 0.0),
+                                  20.0, 10.0, 0.0, 0.0),
                               child: Text(
                                 'Налаштування сповіщень викликів',
                                 style: FlutterFlowTheme.of(context)
@@ -434,15 +443,16 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                         ),
                         Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  20.0, 0.0, 0.0, 0.0),
+                                  20.0, 10.0, 0.0, 0.0),
                               child: Text(
                                 'Усунення несправностей',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Montserrat',
-                                      color: Color(0xFF278664),
-                                      fontSize: 15.0,
+                                      color: Colors.black,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w600,
                                     ),
                               ),
                             ),
@@ -450,7 +460,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   20.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                'Полагодити сповіщення',
+                                'Полагодити сповіщення\n\n',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

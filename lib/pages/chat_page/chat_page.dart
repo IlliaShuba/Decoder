@@ -12,6 +12,8 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:vrouter/vrouter.dart';
 
 class ChatPage extends StatefulWidget {
+  ChatPage({super.key, required this.userName});
+  String userName;
   @override
   // ignore: library_private_types_in_public_api
   _ChatPage createState() => _ChatPage();
@@ -100,7 +102,9 @@ class _ChatPage extends State<ChatPage> {
                   ),
                   Container(
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        VRouter.of(context).to('/user-info');
+                      },
                       icon: Image.asset(
                         'assets/icon/user-avatar.png',
                       ),
@@ -112,7 +116,7 @@ class _ChatPage extends State<ChatPage> {
                   ),
                   Container(
                     child: Text(
-                      'User',
+                      widget.userName,
                       style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontSize: 14 * ffem,
@@ -154,9 +158,7 @@ class _ChatPage extends State<ChatPage> {
                             ),
                             Container(
                               child: IconButton(
-                                onPressed: () {
-                                  VRouter.of(context).to('/user-info');
-                                },
+                                onPressed: () {},
                                 icon: Image.asset(
                                   'assets/icon/pepicons-pencil-dots-y.png',
                                   width: 25 * fem,
@@ -182,9 +184,18 @@ class _ChatPage extends State<ChatPage> {
                     children: [
                       // СПІВРОЗМОВНИК!!!!!!!!!!!!!
                       ChatPageDateUp(),
-                      ChatPageSender(text: 'Text'),
-                      ChatPageSender(text: 'Text'),
-                      ChatPageSender(text: 'Text'),
+                      ChatPageSender(
+                        text: 'Text',
+                        sender: widget.userName,
+                      ),
+                      ChatPageSender(
+                        text: 'Text',
+                        sender: widget.userName,
+                      ),
+                      ChatPageSender(
+                        text: 'Text',
+                        sender: widget.userName,
+                      ),
                       SizedBox(
                         height: 10 * fem,
                       ),

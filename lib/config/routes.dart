@@ -40,7 +40,9 @@ class AppRoutes {
         ),
         VWidget(
           path: '/chat-page',
-          widget: ChatPage(),
+          widget: ChatPage(
+            userName: '',
+          ),
         ),
         VWidget(
           path: '/settings',
@@ -50,63 +52,51 @@ class AppRoutes {
       ];
 
   List<VRouteElement> get _settingsRoutes => [
-    VWidget(
-        path: 'general',
-      widget:  Container(),
-      buildTransition: _dynamicTransition
-    ),
-    VWidget(
-      path: '/preference', 
-      widget: PreferencePage(),
-      buildTransition: _dynamicTransition
-    ),
-    VWidget(
-      path: '/notification', 
-      widget: NotificationPageWidget(),
-      buildTransition: _dynamicTransition
-    ),
-    VWidget(
-      path: '/security',
-      widget: SecurityPage(),
-      buildTransition: _dynamicTransition
-    ),
-    VWidget(
-      path: '/voice-and-video', 
-      widget: VoiceAndVideoPage(),
-      buildTransition: _dynamicTransition
-    ),
-    VWidget(
-      path: '/laboratory', 
-      widget: LaboratoryPage(),
-      buildTransition: _dynamicTransition
-    ),
-    VWidget(
-      path: '/crossed-connection',
-      widget: CrossedConnectionPage(),
-      buildTransition: _dynamicTransition
-    ),
-    VWidget(
-      path: '/session-control',
-      widget: SessionControlPage(),
-      buildTransition: _dynamicTransition
-    ),
-    VWidget(
-      path: '/user-info',
-      widget: UserInfoPage(),
-      buildTransition: _dynamicTransition
-    ),
-    VWidget(
-      path: '/user-settings',
-      widget: UserSettingsPage(),
-      buildTransition: _dynamicTransition
-    ),
-    VWidget(
-      path: '/user-notification',
-      widget: UserNotificationPage(),
-      buildTransition: _dynamicTransition
-    ),
-  ];
-
+        VWidget(
+            path: 'general',
+            widget: Container(),
+            buildTransition: _dynamicTransition),
+        VWidget(
+            path: '/preference',
+            widget: PreferencePage(),
+            buildTransition: _dynamicTransition),
+        VWidget(
+            path: '/notification',
+            widget: NotificationPageWidget(),
+            buildTransition: _dynamicTransition),
+        VWidget(
+            path: '/security',
+            widget: SecurityPage(),
+            buildTransition: _dynamicTransition),
+        VWidget(
+            path: '/voice-and-video',
+            widget: VoiceAndVideoPage(),
+            buildTransition: _dynamicTransition),
+        VWidget(
+            path: '/laboratory',
+            widget: LaboratoryPage(),
+            buildTransition: _dynamicTransition),
+        VWidget(
+            path: '/crossed-connection',
+            widget: CrossedConnectionPage(),
+            buildTransition: _dynamicTransition),
+        VWidget(
+            path: '/session-control',
+            widget: SessionControlPage(),
+            buildTransition: _dynamicTransition),
+        VWidget(
+            path: '/user-info',
+            widget: UserInfoPage(),
+            buildTransition: _dynamicTransition),
+        VWidget(
+            path: '/user-settings',
+            widget: UserSettingsPage(),
+            buildTransition: _dynamicTransition),
+        VWidget(
+            path: '/user-notification',
+            widget: UserNotificationPage(),
+            buildTransition: _dynamicTransition),
+      ];
 
   List<VRouteElement> get _homeRoutes => [
         VWidget(path: '/', widget: const LoadingView()),

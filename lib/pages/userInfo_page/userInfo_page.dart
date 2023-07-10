@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:decoder/utils/custom_scroll_behavior.dart';
 import 'package:vrouter/vrouter.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class UserInfoPage extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _UserInfoPage extends State<UserInfoPage> {
     double baseWidth = 360;
     double baseHeight = 800;
     double fem = MediaQuery.of(context).size.width / baseWidth;
-    double fvm = MediaQuery.of(context).size.height / baseHeight;
+    double fhm = MediaQuery.of(context).size.height / baseHeight;
     double ffem = fem * 0.97;
 
     return Material(
@@ -72,16 +73,18 @@ class _UserInfoPage extends State<UserInfoPage> {
                           ),
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {
-                          print('share');
-                        },
-                        
-                        padding: EdgeInsets.only( left: 210),
-                        icon: Image.asset(
-                          'assets/icon/imgsettings.png',
-                          width: 20 * fem,
-                          height: 20 * fem,
+                      Spacer(),
+                      Container(
+                        margin: EdgeInsets.only(right: 15 * fem),
+                        child: IconButton(
+                          onPressed: () {
+                            print('share');
+                          },
+                          icon: SvgPicture.asset(
+                            'assets/icon/share1.svg',
+                            width: 25 * fem,
+                            height: 25 * fhm,
+                          ),
                         ),
                       ),
                     ],
@@ -107,15 +110,15 @@ class _UserInfoPage extends State<UserInfoPage> {
                           width: double.infinity,
                           margin: EdgeInsets.only(top: 15),
                           child: Text(
-                          'User',
-                          style: SafeGoogleFont(
-                            'Montserrat',
-                            fontSize: 20 * ffem,
-                            fontWeight: FontWeight.w600,
-                            height: 1.2175 * ffem / fem,
-                            color: Color(0xff191919),
+                            'User',
+                            style: SafeGoogleFont(
+                              'Montserrat',
+                              fontSize: 20 * ffem,
+                              fontWeight: FontWeight.w600,
+                              height: 1.2175 * ffem / fem,
+                              color: Color(0xff191919),
+                            ),
                           ),
-                        ),
                         )
                       ],
                     )),
@@ -290,8 +293,10 @@ class _UserInfoPage extends State<UserInfoPage> {
                                       0 * fem, 0 * fem, 20 * fem, 0 * fem),
                                   width: 20 * fem,
                                   height: 20 * fem,
-                                  child: Image.asset('assets/icon/imgsettings.png',
-                                      width: 20 * fem, height: 20 * fem),
+                                  child: SvgPicture.asset(
+                                      'assets/icon/notify1.svg',
+                                      width: 20 * fem,
+                                      height: 20 * fem),
                                 ),
                                 Text(
                                   'Сповіщення',
@@ -323,8 +328,10 @@ class _UserInfoPage extends State<UserInfoPage> {
                                       0 * fem, 0 * fem, 20 * fem, 0 * fem),
                                   width: 20 * fem,
                                   height: 20 * fem,
-                                  child: Image.asset('assets/icon/imgsettings.png',
-                                      width: 20 * fem, height: 20 * fem),
+                                  child: SvgPicture.asset(
+                                      'assets/icon/users1.svg',
+                                      width: 20 * fem,
+                                      height: 20 * fem),
                                 ),
                                 Text(
                                   '2 особи',
@@ -356,8 +363,8 @@ class _UserInfoPage extends State<UserInfoPage> {
                                       0 * fem, 0 * fem, 20 * fem, 0 * fem),
                                   width: 20 * fem,
                                   height: 20 * fem,
-                                  child: Image.asset(
-                                      'assets/icon/imgsettings.png',
+                                  child: SvgPicture.asset(
+                                      'assets/icon/chart1.svg',
                                       width: 20 * fem,
                                       height: 20 * fem),
                                 ),
@@ -391,8 +398,8 @@ class _UserInfoPage extends State<UserInfoPage> {
                                       0 * fem, 0 * fem, 20 * fem, 0 * fem),
                                   width: 20 * fem,
                                   height: 20 * fem,
-                                  child: Image.asset(
-                                      'assets/icon/imgsettings.png',
+                                  child: SvgPicture.asset(
+                                      'assets/icon/circle_arrow1.svg',
                                       width: 20 * fem,
                                       height: 20 * fem),
                                 ),
@@ -426,8 +433,10 @@ class _UserInfoPage extends State<UserInfoPage> {
                                       0 * fem, 0 * fem, 20 * fem, 0 * fem),
                                   width: 20 * fem,
                                   height: 20 * fem,
-                                  child: Image.asset('assets/icon/imgsettings.png',
-                                      width: 20 * fem, height: 20 * fem),
+                                  child: SvgPicture.asset(
+                                      'assets/icon/add1.svg',
+                                      width: 20 * fem,
+                                      height: 20 * fem),
                                 ),
                                 Text(
                                   'Додати ярлик на головний екран',
@@ -459,8 +468,8 @@ class _UserInfoPage extends State<UserInfoPage> {
                                       0 * fem, 0 * fem, 20 * fem, 0 * fem),
                                   width: 20 * fem,
                                   height: 20 * fem,
-                                  child: Image.asset(
-                                      'assets/icon/imgsettings.png',
+                                  child: SvgPicture.asset(
+                                      'assets/icon/exit1.svg',
                                       width: 20 * fem,
                                       height: 20 * fem),
                                 ),

@@ -5,6 +5,7 @@ import 'package:decoder/pages/laboratory_page/laboratory_page.dart';
 import 'package:decoder/pages/preference_page/preference_page.dart';
 import 'package:decoder/pages/security_page/crossedConnection_page.dart';
 import 'package:decoder/pages/security_page/security_page.dart';
+import 'package:decoder/pages/security_page/security_page_view.dart';
 import 'package:decoder/pages/security_page/sessionControl_page.dart';
 import 'package:decoder/pages/settings_page/settings_page.dart';
 import 'package:decoder/pages/notification_page/notification_page_view.dart';
@@ -34,16 +35,18 @@ class AppRoutes {
         VWidget(
           path: '/rooms',
           widget: ChatListView(),
-        ),
-        VWidget(
+          stackedRoutes: [
+            VWidget(
           path: '/chat-page',
           widget: ChatPage(),
-        ),
-        VWidget(
+          ),
+          VWidget(
           path: '/settings',
           widget: SettingsPage(),
           stackedRoutes: _settingsRoutes,
+          ),]
         ),
+        
       ];
 
   List<VRouteElement> get _settingsRoutes => [
@@ -64,7 +67,7 @@ class AppRoutes {
     ),
     VWidget(
       path: '/security',
-      widget: SecurityPage(),
+      widget: SecurityPageView(controller: SecurityPageController()),
       buildTransition: _dynamicTransition
     ),
     VWidget(

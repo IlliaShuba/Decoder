@@ -1,876 +1,175 @@
-import 'package:decoder/pages/settings_page/settings_page.dart';
+import 'dart:convert';
+import 'dart:typed_data';
+import 'package:decoder/config/setting_keys.dart';
+import 'package:decoder/widgets/matrix.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
-import 'dart:ui';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:decoder/utils/custom_scroll_behavior.dart';
-import 'package:vrouter/vrouter.dart';
+import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:flutter_app_lock/flutter_app_lock.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:future_loading_dialog/future_loading_dialog.dart';
+import 'package:intl/intl.dart';
+import 'package:decoder/utils/matrix_sdk_extensions/matrix_file_extension.dart';
+import 'package:matrix/matrix.dart';
+import 'security_page_view.dart';
 
 class SecurityPage extends StatefulWidget {
+  const SecurityPage({Key? key}) : super(key: key);
+
   @override
-  _SecurityPage createState() => _SecurityPage();
+  SecurityPageController createState() => SecurityPageController();
 }
 
-class _SecurityPage extends State<SecurityPage> {
-  bool isDecoderSwitched = false;
-  bool isAnaliticalSwitched = false;
-  bool isIncognitoSwitched = false;
-  bool isScreenshotSwitched = false;
+class SecurityPageController extends State<SecurityPage> {
+  late BuildContext context;
 
   @override
-  Widget build(BuildContext context) {
-    double baseWidth = 360;
-    double baseHeight = 800;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
-    double fvm = MediaQuery.of(context).size.height / baseHeight;
-    double ffem = fem * 0.97;
+  void initState() {
+    super.initState();
+    context = context;
+  }
 
-    return Material(
-      type: MaterialType.transparency,
-      child: Container(
-        padding: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 0*fem),
-        width: double.infinity,
-        decoration: BoxDecoration (
-          color: Color(0xffffffff),
+  @override
+  Widget build(BuildContext context) => SecurityPageView(controller: this);
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    context = this.context;
+  }
+
+  void changePasswordAccountAction() async {
+    final input = await showTextInputDialog(
+      useRootNavigator: false,
+      context: context,
+      title: L10n.of(context)!.changePassword,
+      okLabel: L10n.of(context)!.ok,
+      cancelLabel: L10n.of(context)!.cancel,
+      textFields: [
+        DialogTextField(
+          hintText: L10n.of(context)!.chooseAStrongPassword,
+          obscureText: true,
+          minLines: 1,
+          maxLines: 1,
         ),
+        DialogTextField(
+          hintText: L10n.of(context)!.repeatPassword,
+          obscureText: true,
+          minLines: 1,
+          maxLines: 1,
+        ),
+      ],
+    );
+    if (input == null) return;
+    final success = await showFutureLoadingDialog(
+      context: context,
+      future: () => Matrix.of(context)
+          .client
+          .changePassword(input.last, oldPassword: input.first),
+    );
+    if (success.error == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(L10n.of(context)!.passwordHasBeenChanged)),
+      );
+    }
+  }
 
-        child: Scaffold(
-          appBar: AppBar(
-              backgroundColor: Colors.white,
-              leadingWidth: double.infinity,
-
-              leading: Container(
-                padding: EdgeInsets.only(left: 22 * fem),
-                width: double.infinity,
-
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        VRouter.of(context).to('/settings');
-                      },
-                      padding: EdgeInsets.only(right: 13*fem),
-                      icon:
-                        Image.asset(
-                          'assets/icon/backbutton-Vk8.png',
-                          width: 20*fem,
-                          height: 20*fem,
-                        ),
-                    ),
-
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0*fem, 0.5*fem, 0*fem, 0*fem),
-                      child: Text(
-                        'Безпека',
-                        style: SafeGoogleFont (
-                          'Montserrat',
-                          fontSize: 16*ffem,
-                          fontWeight: FontWeight.w400,
-                          height: 1.2175*ffem/fem,
-                          color: Color(0xff191919),
-                        ),
-                      ),
-                    ),
-                  ],
-                
-                ),
-              ),
-            ),
-          body: ListView(
-            physics: ClampingScrollPhysics(),
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 5),
-                padding: EdgeInsets.fromLTRB(25*fem, 15*fem, 0*fem, 15*fem),
-                decoration: BoxDecoration(
-                  border: Border(bottom:  BorderSide(width: 1, color: Color.fromRGBO(121, 164, 113, 0.7)))
-                ),
-              
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                        child: Text(
-                          'Криптографія',
-                          style: SafeGoogleFont (
-                            'Montserrat',
-                            fontSize: 15*ffem,
-                            fontWeight: FontWeight.w600,
-                            height: 1.2175*ffem/fem,
-                            color: Color(0xff278664),
-                        ),
-                      )
-                    ),
-                    GestureDetector(
-                        onTap: () {
-                          VRouter.of(context).to('/crossed-connection');
-                        },
-                        child: Column(
-                          children: [
-                            Container(
-                            margin: EdgeInsets.only(top: 25),
-                            width: double.infinity,
-                            decoration: BoxDecoration (
-                              color: Color.fromARGB(0, 255, 255, 255),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  child: Text(
-                                    'Перехресне підписування',
-                                    style: SafeGoogleFont (
-                                      'Montserrat',
-                                      fontSize: 15*ffem,
-                                      fontWeight: FontWeight.w600,
-                                      height: 1.2175*ffem/fem,
-                                      color: Color(0xff278664),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 5),
-                                  child: Text(
-                                    'Перехресне підписування не ввімкнене',
-                                    style: SafeGoogleFont (
-                                      'Montserrat',
-                                      fontSize: 13*ffem,
-                                      fontWeight: FontWeight.w300,
-                                      height: 1.2175*ffem/fem,
-                                      color: Color(0xb279a471),
-                                    ),
-                                  ),
-                                )
-                              ]
-                            )
-                          )
-                        ]
-                      )
-                    ),
-                    Container(
-                        margin: EdgeInsets.only(top: 25),
-                        child: Text(
-                          'Загальнодоступна назва',
-                          style: SafeGoogleFont (
-                            'Montserrat',
-                            fontSize: 15*ffem,
-                            fontWeight: FontWeight.w600,
-                            height: 1.2175*ffem/fem,
-                            color: Color(0xff278664),
-                        ),
-                      )
-                    ),
-                    Container(
-                    child: Column(
-                      
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 25),
-                          width: double.infinity,
-                          decoration: BoxDecoration (
-                            color: Color.fromARGB(0, 255, 255, 255),
-                          ),
-
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: Text(
-                                  'ID сеансу',
-                                  style: SafeGoogleFont (
-                                    'Montserrat',
-                                    fontSize: 15*ffem,
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.2175*ffem/fem,
-                                    color: Color(0xff278664),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 5),
-                                child: Text(
-                                  'JDJKFLGKGS',
-                                  style: SafeGoogleFont (
-                                  'Montserrat',
-                                  fontSize: 13*ffem,
-                                  fontWeight: FontWeight.w300,
-                                  height: 1.2175*ffem/fem,
-                                  color: Color(0xb279a471),
-                                  ),
-                                ),
-                              )
-                            ]
-                          )
-                        )
-                      ]
-                    )
-                  ),
-                    Container(
-                    child: Column(
-                      
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 25),
-                          width: double.infinity,
-                          decoration: BoxDecoration (
-                            color: Color.fromARGB(0, 255, 255, 255),
-                          ),
-
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: Text(
-                                  'Ключ сеансу',
-                                  style: SafeGoogleFont (
-                                    'Montserrat',
-                                    fontSize: 15*ffem,
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.2175*ffem/fem,
-                                    color: Color(0xff278664),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 5),
-                                child: Text(
-                                  'u6sd lksd kln3 jnfs jlds kwrH lk3t ljrj A3jd fHkf jk23',
-                                  style: SafeGoogleFont (
-                                  'Montserrat',
-                                  fontSize: 13*ffem,
-                                  fontWeight: FontWeight.w300,
-                                  height: 1.2175*ffem/fem,
-                                  color: Color(0xb279a471),
-                                  ),
-                                ),
-                              )
-                            ]
-                          )
-                        )
-                      ]
-                    )
-                  ),
-                    Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(top: 25),
-                            width: 200*fem,
-                            child: Text(
-                              'Шифрувати лише для звірених сеансів',
-                              style: SafeGoogleFont (
-                                'Montserrat',
-                                fontSize: 15*ffem,
-                                fontWeight: FontWeight.w600,
-                                height: 1.2175*ffem/fem,
-                                color: Color(0xff278664),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 5),
-                            width: 200*fem,
-                            child: Text(
-                              'Ніколи не надсилати зашифровані повідомлення з цього сеансу на незвірені',
-                              style: SafeGoogleFont (
-                                'Montserrat',
-                                fontSize: 13*ffem,
-                                fontWeight: FontWeight.w300,
-                                height: 1.2175*ffem/fem,
-                                color: Color(0xb279a471),
-                                ),
-                              ),
-                            )
-                          ]
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 60),
-                          child: Switch(
-                            activeTrackColor: Color(0xff278664),
-                            thumbColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
-                              return const Color.fromARGB(255, 255, 255, 255);
-                            }),
-                              
-                              
-                            value: isDecoderSwitched,
-                            onChanged: (value) {
-                              setState(() {
-                                isDecoderSwitched = value; 
-                              });
-                            },
-                          ),
-                        )
-                    ],
-                  )
-                  ]
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 5),
-                padding: EdgeInsets.fromLTRB(25*fem, 15*fem, 0*fem, 15*fem),
-                decoration: BoxDecoration(
-                  border: Border(bottom:  BorderSide(width: 1, color: Color.fromRGBO(121, 164, 113, 0.7)))
-                ),
-              
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                        child: Text(
-                          'Активні сеанси',
-                          style: SafeGoogleFont (
-                            'Montserrat',
-                            fontSize: 15*ffem,
-                            fontWeight: FontWeight.w600,
-                            height: 1.2175*ffem/fem,
-                            color: Color(0xff278664),
-                        ),
-                      )
-                    ),
-                    GestureDetector(
-                        onTap: () {
-                          VRouter.of(context).to('/session-control');
-                        },
-                        child: Column(
-                          children: [
-                            Container(
-                            margin: EdgeInsets.only(top: 25),
-                            width: double.infinity,
-                            decoration: BoxDecoration (
-                              color: Color.fromARGB(0, 255, 255, 255),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  child: Text(
-                                    'Показати всі сеанси',
-                                    style: SafeGoogleFont (
-                                      'Montserrat',
-                                      fontSize: 15*ffem,
-                                      fontWeight: FontWeight.w600,
-                                      height: 1.2175*ffem/fem,
-                                      color: Color(0xff278664),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 5),
-                                  child: Text(
-                                    '2 активні сеанси',
-                                    style: SafeGoogleFont (
-                                      'Montserrat',
-                                      fontSize: 13*ffem,
-                                      fontWeight: FontWeight.w300,
-                                      height: 1.2175*ffem/fem,
-                                      color: Color(0xb279a471),
-                                    ),
-                                  ),
-                                )
-                              ]
-                            )
-                          )
-                        ]
-                      )
-                    ),
-                  ]
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 5),
-                padding: EdgeInsets.fromLTRB(25*fem, 15*fem, 0*fem, 15*fem),
-                decoration: BoxDecoration(
-                  border: Border(bottom:  BorderSide(width: 1, color: Color.fromRGBO(121, 164, 113, 0.7)))
-                ),
-              
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                        child: Text(
-                          'Керування криптографічними ключами',
-                          style: SafeGoogleFont (
-                            'Montserrat',
-                            fontSize: 15*ffem,
-                            fontWeight: FontWeight.w600,
-                            height: 1.2175*ffem/fem,
-                            color: Color(0xff278664),
-                        ),
-                      )
-                    ),
-                    GestureDetector(
-                        onTap: () {print("Відновлення зашифрованих повідомлень");},
-                        child: Column(
-                          children: [
-                            Container(
-                            margin: EdgeInsets.only(top: 25),
-                            width: double.infinity,
-                            decoration: BoxDecoration (
-                              color: Color.fromARGB(0, 255, 255, 255),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  child: Text(
-                                    'Відновлення зашифрованих повідомлень',
-                                    style: SafeGoogleFont (
-                                      'Montserrat',
-                                      fontSize: 15*ffem,
-                                      fontWeight: FontWeight.w600,
-                                      height: 1.2175*ffem/fem,
-                                      color: Color(0xff278664),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 5),
-                                  child: Text(
-                                    'Керування резервною копією ключів',
-                                    style: SafeGoogleFont (
-                                      'Montserrat',
-                                      fontSize: 13*ffem,
-                                      fontWeight: FontWeight.w300,
-                                      height: 1.2175*ffem/fem,
-                                      color: Color(0xb279a471),
-                                    ),
-                                  ),
-                                )
-                              ]
-                            )
-                          )
-                        ]
-                      )
-                    ),
-                    GestureDetector(
-                        onTap: () {print("Експортувати Е2Е ключі кімнати");},
-                        child: Column(
-                          children: [
-                            Container(
-                            margin: EdgeInsets.only(top: 25),
-                            width: double.infinity,
-                            decoration: BoxDecoration (
-                              color: Color.fromARGB(0, 255, 255, 255),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  child: Text(
-                                    'Експортувати Е2Е ключі кімнати',
-                                    style: SafeGoogleFont (
-                                      'Montserrat',
-                                      fontSize: 15*ffem,
-                                      fontWeight: FontWeight.w600,
-                                      height: 1.2175*ffem/fem,
-                                      color: Color(0xff278664),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 5),
-                                  child: Text(
-                                    'Експортувати ключі до локального файлу',
-                                    style: SafeGoogleFont (
-                                      'Montserrat',
-                                      fontSize: 13*ffem,
-                                      fontWeight: FontWeight.w300,
-                                      height: 1.2175*ffem/fem,
-                                      color: Color(0xb279a471),
-                                    ),
-                                  ),
-                                )
-                              ]
-                            )
-                          )
-                        ]
-                      )
-                    ),
-                    GestureDetector(
-                        onTap: () {print("Імпортувати Е2Е ключі кімнати");},
-                        child: Column(
-                          children: [
-                            Container(
-                            margin: EdgeInsets.only(top: 25),
-                            width: double.infinity,
-                            decoration: BoxDecoration (
-                              color: Color.fromARGB(0, 255, 255, 255),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  child: Text(
-                                    'Імпортувати Е2Е ключі кімнати',
-                                    style: SafeGoogleFont (
-                                      'Montserrat',
-                                      fontSize: 15*ffem,
-                                      fontWeight: FontWeight.w600,
-                                      height: 1.2175*ffem/fem,
-                                      color: Color(0xff278664),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 5),
-                                  child: Text(
-                                    'Імпортувати ключі з локального файлу',
-                                    style: SafeGoogleFont (
-                                      'Montserrat',
-                                      fontSize: 13*ffem,
-                                      fontWeight: FontWeight.w300,
-                                      height: 1.2175*ffem/fem,
-                                      color: Color(0xb279a471),
-                                    ),
-                                  ),
-                                )
-                              ]
-                            )
-                          )
-                        ]
-                      )
-                    ),
-                  ]
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 5),
-                padding: EdgeInsets.fromLTRB(25*fem, 15*fem, 0*fem, 15*fem),
-                decoration: BoxDecoration(
-                  border: Border(bottom:  BorderSide(width: 1, color: Color.fromRGBO(121, 164, 113, 0.7)))
-                ),
-              
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                        child: Text(
-                          'Нехтувані користувачі',
-                          style: SafeGoogleFont (
-                            'Montserrat',
-                            fontSize: 15*ffem,
-                            fontWeight: FontWeight.w600,
-                            height: 1.2175*ffem/fem,
-                            color: Color(0xff278664),
-                        ),
-                      )
-                    ),
-                    GestureDetector(
-                        onTap: () {print("Нехтувані користувачі");},
-                        child: Column(
-                          children: [
-                            Container(
-                            margin: EdgeInsets.only(top: 25),
-                            width: double.infinity,
-                            decoration: BoxDecoration (
-                              color: Color.fromARGB(0, 255, 255, 255),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: 240*fem,
-                                        child: Text(
-                                          'Нехтувані користувачі',
-                                          style: SafeGoogleFont (
-                                            'Montserrat',
-                                            fontSize: 15*ffem,
-                                            fontWeight: FontWeight.w600,
-                                            height: 1.2175*ffem/fem,
-                                            color: Color(0xff278664),
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        width: 20*fem,
-                                        height: 20*fem,
-                                        margin: EdgeInsets.only(left: 60),
-                                        child: Image.asset(
-                                          'assets/icon/button.png',
-                                          width: 20*fem,
-                                          height: 20*fem,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ]
-                            )
-                          )
-                        ]
-                      )
-                    ),
-                  ]
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 5),
-                padding: EdgeInsets.fromLTRB(25*fem, 15*fem, 0*fem, 15*fem),
-                decoration: BoxDecoration(
-                  border: Border(bottom:  BorderSide(width: 1, color: Color.fromRGBO(121, 164, 113, 0.7)))
-                ),
-
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-
-                  children: [
-                    Container(
-                        child: Text(
-                          'Телеметрія',
-                          style: SafeGoogleFont (
-                            'Montserrat',
-                            fontSize: 15*ffem,
-                            fontWeight: FontWeight.w600,
-                            height: 1.2175*ffem/fem,
-                            color: Color(0xff278664),
-                        ),
-                      )
-                    ),
-                    Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 200*fem,
-                              margin: EdgeInsets.only(top: 25),
-                              child: Text(
-                                'Надсилання аналітичних даних',
-                                style: SafeGoogleFont (
-                                'Montserrat',
-                                  fontSize: 15*ffem,
-                                  fontWeight: FontWeight.w600,
-                                  height: 1.2175*ffem/fem,
-                                  color: Color(0xff278664),
-                                ),
-                              ),
-                            ),
-                          Container(
-                            margin: EdgeInsets.only(top: 5),
-                            width: 200*fem,
-                            child: Text(
-                              'DeCoder збирає анонімну аналітику, щоб ми могли вдосконалювати цей застосунок',
-                              style: SafeGoogleFont (
-                                'Montserrat',
-                                fontSize: 13*ffem,
-                                fontWeight: FontWeight.w300,
-                                height: 1.2175*ffem/fem,
-                                color: Color(0xb279a471),
-                                ),
-                              ),
-                            )
-                          ]
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 60),
-                          child: Switch(
-                            activeTrackColor: Color(0xff278664),
-                            thumbColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
-                              return const Color.fromARGB(255, 255, 255, 255);
-                            }),
-                              
-                              
-                            value: isAnaliticalSwitched,
-                            onChanged: (value) {
-                              setState(() {
-                                isAnaliticalSwitched = value; 
-                              });
-                            },
-                          ),
-                        )
-                    ],
-                  )
-                ],
-              ),
-            ),
-              Container(
-                margin: EdgeInsets.only(top: 5),
-                padding: EdgeInsets.fromLTRB(25*fem, 15*fem, 0*fem, 15*fem),
-                decoration: BoxDecoration(
-                  border: Border(bottom:  BorderSide(width: 1, color: Color.fromRGBO(121, 164, 113, 0.7)))
-                ),
-
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-
-                  children: [
-                    Container(
-                        child: Text(
-                          'Інше',
-                          style: SafeGoogleFont (
-                            'Montserrat',
-                            fontSize: 15*ffem,
-                            fontWeight: FontWeight.w600,
-                            height: 1.2175*ffem/fem,
-                            color: Color(0xff278664),
-                        ),
-                      )
-                    ),
-                    GestureDetector(
-                    onTap: () {print("Захист доступу");},
-                    child: Container(
-                          margin: EdgeInsets.only(top: 25),
-                          width: double.infinity,
-                          decoration: BoxDecoration (
-                            color: Color.fromARGB(0, 255, 255, 255),
-                          ),
-
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: Text(
-                                  'Захист доступу',
-                                  style: SafeGoogleFont (
-                                    'Montserrat',
-                                    fontSize: 15*ffem,
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.2175*ffem/fem,
-                                    color: Color(0xff278664),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 5),
-                                child: Text(
-                                  'Захистіть доступ PIN-кодом та біометричними даними.',
-                                  style: SafeGoogleFont (
-                                  'Montserrat',
-                                  fontSize: 13*ffem,
-                                  fontWeight: FontWeight.w300,
-                                  height: 1.2175*ffem/fem,
-                                  color: Color(0xb279a471),
-                                  ),
-                                ),
-                              )
-                            ]
-                          )
-                        )
-                    ),
-                    Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 200*fem,
-                              margin: EdgeInsets.only(top: 25),
-                              child: Text(
-                                'Клавіатура інкогніто',
-                                style: SafeGoogleFont (
-                                'Montserrat',
-                                  fontSize: 15*ffem,
-                                  fontWeight: FontWeight.w600,
-                                  height: 1.2175*ffem/fem,
-                                  color: Color(0xff278664),
-                                ),
-                              ),
-                            ),
-                          Container(
-                            margin: EdgeInsets.only(top: 5),
-                            width: 200*fem,
-                            child: Text(
-                              'Заборонити клавіатурі оновлювати будь-які персоналізовані дані, як-от історію набору тексту та словник, на основі того, що ви набрали в розмовах. Зверніть увагу, що деякі клавіатури можуть не дотримуватися цього налаштування',
-                              style: SafeGoogleFont (
-                                'Montserrat',
-                                fontSize: 13*ffem,
-                                fontWeight: FontWeight.w300,
-                                height: 1.2175*ffem/fem,
-                                color: Color(0xb279a471),
-                                ),
-                              ),
-                            )
-                          ]
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 60),
-                          child: Switch(
-                            activeTrackColor: Color(0xff278664),
-                            thumbColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
-                              return const Color.fromARGB(255, 255, 255, 255);
-                            }),
-                              
-                              
-                            value: isIncognitoSwitched,
-                            onChanged: (value) {
-                              setState(() {
-                                isIncognitoSwitched = value; 
-                              });
-                            },
-                          ),
-                        )
-                    ],
-                  ),
-                    Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: 200*fem,
-                            margin: EdgeInsets.only(top: 25),
-                            child: Text(
-                              'Запобігати знімкам екрана застосунку',
-                              style: SafeGoogleFont (
-                                'Montserrat',
-                                fontSize: 15*ffem,
-                                fontWeight: FontWeight.w600,
-                                height: 1.2175*ffem/fem,
-                                color: Color(0xff278664),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 5),
-                            width: 200*fem,
-                            child: Text(
-                              'Увімкнення цього параметру додає FLAG_SECURE всім екранам. Зміна потребує перезапуску застосунку.',
-                              style: SafeGoogleFont (
-                                'Montserrat',
-                                fontSize: 13*ffem,
-                                fontWeight: FontWeight.w300,
-                                height: 1.2175*ffem/fem,
-                                color: Color(0xb279a471),
-                                ),
-                              ),
-                            )
-                          ]
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 60, top: 40),
-                          child: Switch(
-                            activeTrackColor: Color(0xff278664),
-                            thumbColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
-                              return const Color.fromARGB(255, 255, 255, 255);
-                            }),
-                              
-                              
-                            value: isScreenshotSwitched,
-                            onChanged: (value) {
-                              setState(() {
-                                isScreenshotSwitched = value; 
-                              });
-                            },
-                              
-                          ),
-                          
-                        )
-                    ],
-                  )
-                ],
-              ),
-            ),
-            ]
-          ),
+  
+  void setAppLockAction() async {
+    final currentLock =
+        await const FlutterSecureStorage().read(key: SettingKeys.appLockKey);
+    if (currentLock?.isNotEmpty ?? false) {
+      await AppLock.of(context)!.showLockScreen();
+    }
+    final newLock = await showTextInputDialog(
+      useRootNavigator: false,
+      context: context,
+      title: L10n.of(context)!.pleaseChooseAPasscode,
+      message: L10n.of(context)!.pleaseEnter4Digits,
+      cancelLabel: L10n.of(context)!.cancel,
+      textFields: [
+        DialogTextField(
+          validator: (text) {
+            if (text!.isEmpty ||
+                (text.length == 4 && int.tryParse(text)! >= 0)) {
+              return null;
+            }
+            return L10n.of(context)!.pleaseEnter4Digits;
+          },
+          keyboardType: TextInputType.number,
+          obscureText: true,
+          maxLines: 1,
+          minLines: 1,
         )
-      )
+      ],
+    );
+    if (newLock != null) {
+      await const FlutterSecureStorage()
+          .write(key: SettingKeys.appLockKey, value: newLock.single);
+      if (newLock.single.isEmpty) {
+        AppLock.of(context)!.disable();
+      } else {
+        AppLock.of(context)!.enable();
+      }
+    }
+  }
+
+  void deleteAccountAction() async {
+    if (await showOkCancelAlertDialog(
+          useRootNavigator: false,
+          context: context,
+          title: L10n.of(context)!.warning,
+          message: L10n.of(context)!.deactivateAccountWarning,
+          okLabel: L10n.of(context)!.ok,
+          cancelLabel: L10n.of(context)!.cancel,
+        ) ==
+        OkCancelResult.cancel) {
+      return;
+    }
+    final supposedMxid = Matrix.of(context).client.userID!;
+    final mxids = await showTextInputDialog(
+      useRootNavigator: false,
+      context: context,
+      title: L10n.of(context)!.confirmMatrixId,
+      textFields: [
+        DialogTextField(
+          validator: (text) => text == supposedMxid
+              ? null
+              : L10n.of(context)!.supposedMxid(supposedMxid),
+        ),
+      ],
+      okLabel: L10n.of(context)!.delete,
+      cancelLabel: L10n.of(context)!.cancel,
+    );
+    if (mxids == null || mxids.length != 1 || mxids.single != supposedMxid) {
+      return;
+    }
+    final input = await showTextInputDialog(
+      useRootNavigator: false,
+      context: context,
+      title: L10n.of(context)!.pleaseEnterYourPassword,
+      okLabel: L10n.of(context)!.ok,
+      cancelLabel: L10n.of(context)!.cancel,
+      textFields: [
+        const DialogTextField(
+          obscureText: true,
+          hintText: '******',
+          minLines: 1,
+          maxLines: 1,
+        )
+      ],
+    );
+    if (input == null) return;
+    await showFutureLoadingDialog(
+      context: context,
+      future: () => Matrix.of(context).client.deactivateAccount(
+            auth: AuthenticationPassword(
+              password: input.single,
+              identifier: AuthenticationUserIdentifier(
+                user: Matrix.of(context).client.userID!,
+              ),
+            ),
+          ),
     );
   }
 }
+

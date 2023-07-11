@@ -14,6 +14,7 @@ import 'package:vrouter/vrouter.dart';
 class ChatPage extends StatefulWidget {
   ChatPage({super.key, required this.userName});
   String userName;
+  static List<Widget> chatPageReceiverList = [];
   @override
   // ignore: library_private_types_in_public_api
   _ChatPage createState() => _ChatPage();
@@ -22,7 +23,7 @@ class ChatPage extends StatefulWidget {
 class _ChatPage extends State<ChatPage> {
   File? image;
   bool _isEmojiVisible = false;
-  List<Widget> chatPageReceiverList = [];
+  ScrollController _scrollController = ScrollController();
 
   Future pickImage(ImageSource source) async {
     try {
@@ -50,18 +51,26 @@ class _ChatPage extends State<ChatPage> {
     if (text.isNotEmpty || image != null) {
       setState(() {
         if (text.isNotEmpty) {
-          chatPageReceiverList
-              .add(ChatPageReceiver(text: _textEditingController.text));
+          ChatPage.chatPageReceiverList.add(ChatPageReceiver(text: text));
         }
         if (image != null) {
-          chatPageReceiverList.add(ChatPageReceiver(
-            text: _textEditingController.text,
+          ChatPage.chatPageReceiverList.add(ChatPageReceiver(
+            text: text,
             image: image,
           ));
           image = null;
         }
       });
       _textEditingController.clear();
+
+      // Выполняем прокрутку вниз после добавления сообщения
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      });
     }
   }
 
@@ -177,6 +186,7 @@ class _ChatPage extends State<ChatPage> {
             SizedBox(height: 50 * fhm),
             Expanded(
               child: SingleChildScrollView(
+                controller: _scrollController,
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 20 * fem),
                   child: Column(
@@ -185,22 +195,18 @@ class _ChatPage extends State<ChatPage> {
                       // СПІВРОЗМОВНИК!!!!!!!!!!!!!
                       ChatPageDateUp(),
                       ChatPageSender(
-                        text: 'Text',
+                        text: 'Привіт, як справи?',
                         sender: widget.userName,
                       ),
                       ChatPageSender(
-                        text: 'Text',
-                        sender: widget.userName,
-                      ),
-                      ChatPageSender(
-                        text: 'Text',
+                        text: 'Як там твоя родина?',
                         sender: widget.userName,
                       ),
                       SizedBox(
                         height: 10 * fem,
                       ),
                       // ВІДПОВІДАЧ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                      ...chatPageReceiverList,
+                      ...ChatPage.chatPageReceiverList,
                       SizedBox(
                         height: 10 * fem,
                       ),

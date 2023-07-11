@@ -1,13 +1,16 @@
 import 'dart:io';
 
+import 'package:decoder/pages/chat_list/chat_list.dart';
 import 'package:flutter/material.dart';
 import 'package:decoder/utils/custom_scroll_behavior.dart';
 import 'package:intl/intl.dart';
+import 'package:decoder/pages/chat_page/chat_page.dart';
 
 class ChatPageReceiver extends StatefulWidget {
   const ChatPageReceiver({super.key, required this.text, this.image});
   final String text;
   final File? image;
+
   @override
   // ignore: library_private_types_in_public_api
   _ChatPageReceiver createState() => _ChatPageReceiver();
@@ -32,74 +35,92 @@ class _ChatPageReceiver extends State<ChatPageReceiver> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Flexible(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(191, 219, 209, 1),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10 * fem),
-                        topRight: Radius.circular(10 * fem),
-                        bottomLeft: Radius.circular(10 * fem),
+                  child: PopupMenuButton<String>(
+                    onSelected: (value) {
+                      if (value == 'delete') {
+                        setState(() {
+                          ChatPage.chatPageReceiverList.removeAt(
+                              ChatPage.chatPageReceiverList.indexOf(widget));
+                        });
+                      }
+                    },
+                    itemBuilder: (BuildContext context) =>
+                        <PopupMenuEntry<String>>[
+                      const PopupMenuItem<String>(
+                        value: 'delete',
+                        child: Text('Видалити'),
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0x3f000000),
-                          offset: Offset(0 * fem, 0 * fem),
-                          blurRadius: 4 * fem,
+                    ],
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(191, 219, 209, 1),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10 * fem),
+                          topRight: Radius.circular(10 * fem),
+                          bottomLeft: Radius.circular(10 * fem),
                         ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.fromLTRB(
-                              10 * fem, 2 * fhm, 5 * fem, 4 * fhm),
-                          child: Text(
-                            'Павшак Артем',
-                            style: SafeGoogleFont(
-                              'Inter',
-                              fontSize: 13 * ffem,
-                              fontWeight: FontWeight.w500,
-                              height: 1.2125 * ffem / fem,
-                              color: Color(0xff278664),
-                            ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x3f000000),
+                            offset: Offset(0 * fem, 0 * fem),
+                            blurRadius: 4 * fem,
                           ),
-                        ),
-                        if (widget.image != null)
-                          Container(
-                            width: 350 * fem,
-                            height: 350 * fhm,
-                            child: Image.file(widget.image!),
-                          ),
-                        if (widget.text.isNotEmpty)
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                           Container(
                             margin: EdgeInsets.fromLTRB(
-                                10 * fem, 0, 10 * fem, 5 * fhm),
+                                10 * fem, 2 * fhm, 5 * fem, 4 * fhm),
                             child: Text(
-                              '${widget.text}',
+                              'Павшак Артем',
                               style: SafeGoogleFont(
-                                'Montserrat',
-                                fontSize: 16 * ffem,
-                                fontWeight: FontWeight.w400,
-                                height: 1.2175 * ffem / fem,
-                                color: Color(0xff191919),
+                                'Inter',
+                                fontSize: 13 * ffem,
+                                fontWeight: FontWeight.w500,
+                                height: 1.2125 * ffem / fem,
+                                color: Color(0xff278664),
                               ),
                             ),
                           ),
-                        Container(
-                          margin: EdgeInsets.fromLTRB(10 * fem, 0, 0, 5 * fhm),
-                          child: Text(
-                            '$date',
-                            style: SafeGoogleFont(
-                              'Inter',
-                              fontSize: 10 * ffem,
-                              fontWeight: FontWeight.w600,
-                              height: 1.2125 * ffem / fem,
-                              color: Color(0xff278664),
+                          if (widget.image != null)
+                            Container(
+                              width: 350 * fem,
+                              height: 350 * fhm,
+                              child: Image.file(widget.image!),
+                            ),
+                          if (widget.text.isNotEmpty)
+                            Container(
+                              margin: EdgeInsets.fromLTRB(
+                                  10 * fem, 0, 10 * fem, 5 * fhm),
+                              child: Text(
+                                '${widget.text}',
+                                style: SafeGoogleFont(
+                                  'Montserrat',
+                                  fontSize: 16 * ffem,
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.2175 * ffem / fem,
+                                  color: Color(0xff191919),
+                                ),
+                              ),
+                            ),
+                          Container(
+                            margin:
+                                EdgeInsets.fromLTRB(10 * fem, 0, 0, 5 * fhm),
+                            child: Text(
+                              '$date',
+                              style: SafeGoogleFont(
+                                'Inter',
+                                fontSize: 10 * ffem,
+                                fontWeight: FontWeight.w600,
+                                height: 1.2125 * ffem / fem,
+                                color: Color(0xff278664),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

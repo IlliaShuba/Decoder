@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:decoder/pages/chat_list/chat_list.dart';
 import 'package:flutter/material.dart';
 import 'package:decoder/utils/custom_scroll_behavior.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ class ChatPageReceiver extends StatefulWidget {
       {super.key, required this.text, this.image, required this.onDelete});
   final String text;
   final File? image;
-  final VoidCallback onDelete;
+
   @override
   // ignore: library_private_types_in_public_api
   _ChatPageReceiver createState() => _ChatPageReceiver();
@@ -30,18 +31,28 @@ class _ChatPageReceiver extends State<ChatPageReceiver> {
       child: Column(
         children: [
           SizedBox(height: 15),
-          GestureDetector(
-            onLongPress: () {
-              setState(() {
-                isMenuOpen = true;
-              });
-            },
-            child: Container(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Flexible(
+          Container(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Flexible(
+                  child: PopupMenuButton<String>(
+                    onSelected: (value) {
+                      if (value == 'delete') {
+                        setState(() {
+                          ChatPage.chatPageReceiverList.removeAt(
+                              ChatPage.chatPageReceiverList.indexOf(widget));
+                        });
+                      }
+                    },
+                    itemBuilder: (BuildContext context) =>
+                        <PopupMenuEntry<String>>[
+                      const PopupMenuItem<String>(
+                        value: 'delete',
+                        child: Text('Видалити'),
+                      ),
+                    ],
                     child: Container(
                       decoration: BoxDecoration(
                         color: Color.fromRGBO(191, 219, 209, 1),

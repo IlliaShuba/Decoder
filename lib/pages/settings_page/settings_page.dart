@@ -87,7 +87,7 @@ class _SettingsPage extends State<SettingsPage> {
 
             GestureDetector(
               onTap: () {
-                
+                  
                 },
                 child:  Container(
                   padding: EdgeInsets.fromLTRB(24*fem, 15*fem, 0*fem, 15*fem),
@@ -200,6 +200,7 @@ class _SettingsPage extends State<SettingsPage> {
             ),
             GestureDetector(
               onTap: () {
+                VRouter.of(context).to('/voice-and-video');
               }, 
               child:  Container(
                 padding: EdgeInsets.fromLTRB(24*fem, 15*fem, 0*fem, 15*fem),
@@ -236,6 +237,7 @@ class _SettingsPage extends State<SettingsPage> {
             ),
             GestureDetector(
               onTap: () {
+                VRouter.of(context).to('/security');
               }, 
               child:  Container(
                 padding: EdgeInsets.fromLTRB(24*fem, 15*fem, 0*fem, 15*fem),
@@ -272,6 +274,7 @@ class _SettingsPage extends State<SettingsPage> {
             ),
             GestureDetector(
               onTap: () {
+                VRouter.of(context).to('/laboratory');
               }, 
               child:  Container(
                 padding: EdgeInsets.fromLTRB(24*fem, 15*fem, 0*fem, 15*fem),

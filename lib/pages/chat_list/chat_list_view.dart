@@ -2,6 +2,7 @@ import 'package:decoder/pages/chat_page/chat_page.dart';
 import 'package:decoder/pages/settings_page/settings_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../widgets/matrix.dart';
+import '../chat_page/chat_page.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'package:matrix/matrix.dart';
@@ -257,6 +258,26 @@ class _ChatListViewState extends State<ChatListView> {
                               ],
                             ),
                           ),
+
+                          PopupMenuItem<String>(
+                            value: 'logout',
+                            child: Row(
+                              children: [
+                                const SizedBox(width: 8.0),
+                                Text(
+                                  'Вийти',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF675F5F),
+                                        fontSize: 14,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+
                         ],
                         onSelected: (String value) {
                           // Handle menu item selection here
@@ -264,7 +285,11 @@ class _ChatListViewState extends State<ChatListView> {
                             print('Edit option selected...');
                           } else if (value == 'filterAscending') {
                             print('Delete option selected...');
+
+                          } else if (value == 'logout') {}
+
                           }
+
                         },
                       )),
                 ],
@@ -312,7 +337,20 @@ class _ChatListViewState extends State<ChatListView> {
                         thickness: 1,
                       ),
                       ChatListItem(
-                        onTap: () {
+
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ChatPage(userName: "Anna"),
+                              ),
+                            );
+                          },
+                          userName: "Anna",
+                          message: "Привіт, як справи???",
+                          date: "5 липня"),
+                     onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -324,6 +362,7 @@ class _ChatListViewState extends State<ChatListView> {
                         message: "Привіт, як справи???",
                         date: "5 липня",
                       ),
+
                       Divider(
                         color: Color(0x3375704E),
                         thickness: 1,
@@ -469,12 +508,18 @@ class _ChatListViewState extends State<ChatListView> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
+                                    ChatPage(userName: "Bezruchko"),
+                              ),
+                            );
+                          },
+                          userName: "Bezruchko",
+
                                     ChatPage(userName: "Nadia"),
                               ),
                             );
                           },
                           userName: "Nadia",
+
                           message: "Ок",
                           date: "3 липня"),
                       Divider(

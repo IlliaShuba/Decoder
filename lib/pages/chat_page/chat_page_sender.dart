@@ -3,10 +3,11 @@ import 'package:decoder/utils/custom_scroll_behavior.dart';
 import 'package:intl/intl.dart';
 
 class ChatPageSender extends StatefulWidget {
-  const ChatPageSender(
-      {super.key, required this.text, required this.senderName});
+
+  const ChatPageSender({super.key, required this.text, required this.sender});
   final String text;
-  final String senderName;
+  final String sender;
+
   @override
   // ignore: library_private_types_in_public_api
   _ChatPageSender createState() => _ChatPageSender();
@@ -62,7 +63,8 @@ class _ChatPageSender extends State<ChatPageSender> {
                           margin: EdgeInsets.fromLTRB(
                               10 * fem, 2 * fhm, 5 * fem, 4 * fhm),
                           child: Text(
-                            '${widget.senderName}',
+                            widget.sender,
+
                             style: SafeGoogleFont(
                               'Inter',
                               fontSize: 13 * ffem,
@@ -76,7 +78,7 @@ class _ChatPageSender extends State<ChatPageSender> {
                           margin: EdgeInsets.fromLTRB(
                               10 * fem, 0, 10 * fem, 5 * fhm),
                           child: Text(
-                            '${widget.text}',
+                            widget.text,
                             style: SafeGoogleFont(
                               'Montserrat',
                               fontSize: 16 * ffem,

@@ -15,7 +15,9 @@ import 'package:vrouter/vrouter.dart';
 class ChatPage extends StatefulWidget {
   ChatPage({super.key, required this.userName});
   String userName;
-  List<Widget> chatPageReceiverList = [];
+
+  static List<Widget> chatPageReceiverList = [];
+
   @override
   // ignore: library_private_types_in_public_api
   _ChatPage createState() => _ChatPage();
@@ -24,7 +26,7 @@ class ChatPage extends StatefulWidget {
 class _ChatPage extends State<ChatPage> {
   File? image;
   bool _isEmojiVisible = false;
-  List<Widget> chatPageReceiverList = [];
+  ScrollController _scrollController = ScrollController();
 
   Future pickImage(ImageSource source) async {
     try {
@@ -58,21 +60,27 @@ class _ChatPage extends State<ChatPage> {
     if (text.isNotEmpty || image != null) {
       setState(() {
         if (text.isNotEmpty) {
-          chatPageReceiverList.add(ChatPageReceiver(
-            text: _textEditingController.text,
-            onDelete: () => {},
-          ));
+
+          ChatPage.chatPageReceiverList.add(ChatPageReceiver(text: text));
+
         }
         if (image != null) {
-          chatPageReceiverList.add(ChatPageReceiver(
-            text: _textEditingController.text,
+          ChatPage.chatPageReceiverList.add(ChatPageReceiver(
+            text: text,
             image: image,
-            onDelete: () => {},
           ));
           image = null;
         }
       });
       _textEditingController.clear();
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      });
     }
   }
 
@@ -113,7 +121,9 @@ class _ChatPage extends State<ChatPage> {
                   ),
                   Container(
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        VRouter.of(context).to('/user-info');
+                      },
                       icon: Image.asset(
                         'assets/icon/user-avatar.png',
                       ),
@@ -126,7 +136,7 @@ class _ChatPage extends State<ChatPage> {
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Text(
-                      '${widget.userName}',
+                      widget.userName,
                       style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontSize: 14 * ffem,
@@ -187,6 +197,7 @@ class _ChatPage extends State<ChatPage> {
             SizedBox(height: 50 * fhm),
             Expanded(
               child: SingleChildScrollView(
+                controller: _scrollController,
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 20 * fem),
                   child: Column(
@@ -195,33 +206,21 @@ class _ChatPage extends State<ChatPage> {
                       // СПІВРОЗМОВНИК!!!!!!!!!!!!!
                       ChatPageDateUp(),
                       ChatPageSender(
-                          text: 'Привіт, як справи?',
-                          senderName: widget.userName),
+
+                        text: 'Привіт, як справи?',
+                        sender: widget.userName,
+                      ),
                       ChatPageSender(
-                          text: 'Сподіваюсь все добре',
-                          senderName: widget.userName),
-                      ChatPageSender(
-                          text: 'Як твої рідні?', senderName: widget.userName),
+                        text: 'Як там твоя родина?',
+                        sender: widget.userName,
+                      ),
+
                       SizedBox(
                         height: 10 * fem,
                       ),
                       // ВІДПОВІДАЧ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                      ...chatPageReceiverList
-                          .map((message) => Dismissible(
-                                key: UniqueKey(),
-                                direction: DismissDirection.startToEnd,
-                                onDismissed: (_) {
-                                  setState(() {
-                                    chatPageReceiverList.remove(message);
-                                  });
-                                },
-                                child: ChatPageReceiver(
-                                  text: _textEditingController.text,
-                                  image: image,
-                                  onDelete: () => {},
-                                ),
-                              ))
-                          .toList(),
+                      ...ChatPage.chatPageReceiverList,
+
                       SizedBox(
                         height: 10 * fem,
                       ),

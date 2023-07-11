@@ -6,9 +6,11 @@ import 'package:intl/intl.dart';
 import 'package:decoder/pages/chat_page/chat_page.dart';
 
 class ChatPageReceiver extends StatefulWidget {
-  const ChatPageReceiver({super.key, required this.text, this.image});
+  const ChatPageReceiver(
+      {super.key, required this.text, this.image, required this.onDelete});
   final String text;
   final File? image;
+  final VoidCallback onDelete;
   @override
   // ignore: library_private_types_in_public_api
   _ChatPageReceiver createState() => _ChatPageReceiver();

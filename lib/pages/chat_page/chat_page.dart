@@ -13,9 +13,9 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:vrouter/vrouter.dart';
 
 class ChatPage extends StatefulWidget {
-  final String userName;
-
-  ChatPage({required this.userName});
+  ChatPage({super.key, required this.userName});
+  String userName;
+  List<Widget> chatPageReceiverList = [];
   @override
   // ignore: library_private_types_in_public_api
   _ChatPage createState() => _ChatPage();
@@ -47,18 +47,27 @@ class _ChatPage extends State<ChatPage> {
     });
   }
 
+  void deleteMessage(ChatPageReceiver message) {
+    setState(() {
+      chatPageReceiverList.remove(message);
+    });
+  }
+
   void sendMessage() {
     String text = _textEditingController.text;
     if (text.isNotEmpty || image != null) {
       setState(() {
         if (text.isNotEmpty) {
-          chatPageReceiverList
-              .add(ChatPageReceiver(text: _textEditingController.text));
+          chatPageReceiverList.add(ChatPageReceiver(
+            text: _textEditingController.text,
+            onDelete: () => {},
+          ));
         }
         if (image != null) {
           chatPageReceiverList.add(ChatPageReceiver(
             text: _textEditingController.text,
             image: image,
+            onDelete: () => {},
           ));
           image = null;
         }
@@ -197,7 +206,22 @@ class _ChatPage extends State<ChatPage> {
                         height: 10 * fem,
                       ),
                       // ВІДПОВІДАЧ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                      ...chatPageReceiverList,
+                      ...chatPageReceiverList
+                          .map((message) => Dismissible(
+                                key: UniqueKey(),
+                                direction: DismissDirection.startToEnd,
+                                onDismissed: (_) {
+                                  setState(() {
+                                    chatPageReceiverList.remove(message);
+                                  });
+                                },
+                                child: ChatPageReceiver(
+                                  text: _textEditingController.text,
+                                  image: image,
+                                  onDelete: () => {},
+                                ),
+                              ))
+                          .toList(),
                       SizedBox(
                         height: 10 * fem,
                       ),

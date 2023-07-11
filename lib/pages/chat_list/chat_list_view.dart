@@ -214,84 +214,78 @@ class _ChatListViewState extends State<ChatListView> {
                   ),
                   //SizedBox(width: 10.0), // Add a SizedBox with width 10.0 for spacing
                   Container(
-                      alignment: Alignment.centerRight,
-                      //padding: EdgeInsets.only(right: 20.0, top: 15.0, bottom: 0.0),
-                      child: PopupMenuButton<String>(
+                    alignment: Alignment.centerRight,
+                    //padding: EdgeInsets.only(right: 20.0, top: 15.0, bottom: 0.0),
+                    child: PopupMenuButton<String>(
                         offset: Offset(0, 40),
                         icon: SvgPicture.asset(
                             'assets/chat_list/images/pepicons-pencil_dots-y.svg'),
                         itemBuilder: (BuildContext context) =>
                             <PopupMenuEntry<String>>[
-                          PopupMenuItem<String>(
-                            value: 'filterByActivity',
-                            child: Row(
-                              children: [
-                                const SizedBox(width: 8.0),
-                                Text(
-                                  'Упорядкувати\n за активністю',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Montserrat',
-                                        color: Color(0xFF675F5F),
-                                        fontSize: 14,
-                                      ),
+                              PopupMenuItem<String>(
+                                value: 'filterByActivity',
+                                child: Row(
+                                  children: [
+                                    const SizedBox(width: 8.0),
+                                    Text(
+                                      'Упорядкувати\n за активністю',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            color: Color(0xFF675F5F),
+                                            fontSize: 14,
+                                          ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
-                          PopupMenuItem<String>(
-                            value: 'filterAscending',
-                            child: Row(
-                              children: [
-                                const SizedBox(width: 8.0),
-                                Text(
-                                  'Упорядкувати А-Я',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Montserrat',
-                                        color: Color(0xFF675F5F),
-                                        fontSize: 14,
-                                      ),
+                              ),
+                              PopupMenuItem<String>(
+                                value: 'filterAscending',
+                                child: Row(
+                                  children: [
+                                    const SizedBox(width: 8.0),
+                                    Text(
+                                      'Упорядкувати А-Я',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            color: Color(0xFF675F5F),
+                                            fontSize: 14,
+                                          ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
-
-                          PopupMenuItem<String>(
-                            value: 'logout',
-                            child: Row(
-                              children: [
-                                const SizedBox(width: 8.0),
-                                Text(
-                                  'Вийти',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Montserrat',
-                                        color: Color(0xFF675F5F),
-                                        fontSize: 14,
-                                      ),
+                              ),
+                              PopupMenuItem<String>(
+                                value: 'logout',
+                                child: Row(
+                                  children: [
+                                    const SizedBox(width: 8.0),
+                                    Text(
+                                      'Вийти',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            color: Color(0xFF675F5F),
+                                            fontSize: 14,
+                                          ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
-
-                        ],
+                              ),
+                            ],
                         onSelected: (String value) {
                           // Handle menu item selection here
                           if (value == 'filterByActivity') {
                             print('Edit option selected...');
                           } else if (value == 'filterAscending') {
                             print('Delete option selected...');
-
                           } else if (value == 'logout') {}
-
-                          }
-
-                        },
-                      )),
+                        }),
+                  ),
                 ],
               ),
             ],
@@ -337,7 +331,6 @@ class _ChatListViewState extends State<ChatListView> {
                         thickness: 1,
                       ),
                       ChatListItem(
-
                           onTap: () {
                             Navigator.push(
                               context,
@@ -350,19 +343,6 @@ class _ChatListViewState extends State<ChatListView> {
                           userName: "Anna",
                           message: "Привіт, як справи???",
                           date: "5 липня"),
-                     onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChatPage(userName: "Anna"),
-                            ),
-                          );
-                        },
-                        userName: "Anna",
-                        message: "Привіт, як справи???",
-                        date: "5 липня",
-                      ),
-
                       Divider(
                         color: Color(0x3375704E),
                         thickness: 1,
@@ -498,29 +478,6 @@ class _ChatListViewState extends State<ChatListView> {
                           },
                           userName: "Danyliuk",
                           message: "Привіт",
-                          date: "3 липня"),
-                      Divider(
-                        color: Color(0x3375704E),
-                        thickness: 1,
-                      ),
-                      ChatListItem(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                    ChatPage(userName: "Bezruchko"),
-                              ),
-                            );
-                          },
-                          userName: "Bezruchko",
-
-                                    ChatPage(userName: "Nadia"),
-                              ),
-                            );
-                          },
-                          userName: "Nadia",
-
-                          message: "Ок",
                           date: "3 липня"),
                       Divider(
                         color: Color(0x3375704E),

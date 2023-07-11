@@ -7,19 +7,18 @@ import 'package:intl/intl.dart';
 import 'package:decoder/pages/chat_page/chat_page.dart';
 
 class ChatPageReceiver extends StatefulWidget {
-  const ChatPageReceiver(
-      {super.key, required this.text, this.image, required this.onDelete});
+  const ChatPageReceiver({super.key, required this.text, this.image});
   final String text;
   final File? image;
 
   @override
-  // ignore: library_private_types_in_public_api
   _ChatPageReceiver createState() => _ChatPageReceiver();
 }
 
 class _ChatPageReceiver extends State<ChatPageReceiver> {
   var date = DateFormat('HH:mm').format(DateTime.now());
   bool isMenuOpen = false;
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 360;
@@ -125,42 +124,42 @@ class _ChatPageReceiver extends State<ChatPageReceiver> {
                       ),
                     ),
                   ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 5 * fem),
+                  width: 20 * fem,
+                  height: 20 * fem,
+                  child: Image.asset(
+                    'assets/icon/user-avatar.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                SizedBox(
+                  width: 10 * fem,
+                ),
+                if (isMenuOpen)
                   Container(
-                    margin: EdgeInsets.only(left: 5 * fem),
-                    width: 20 * fem,
-                    height: 20 * fem,
-                    child: Image.asset(
-                      'assets/icon/user-avatar.png',
-                      fit: BoxFit.cover,
+                    width: 100,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
                     ),
-                  ),
-                  SizedBox(
-                    width: 10 * fem,
-                  ),
-                  if (isMenuOpen)
-                    Container(
-                      width: 100,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                      ),
-                      child: FloatingActionButton(
-                        backgroundColor: Color.fromARGB(255, 23, 90, 90),
-                        onPressed: () {
-                          setState(() {
-                            isMenuOpen = false;
-                          });
-                        },
-                        child: Text(
-                          'Удалить',
-                          style: TextStyle(color: Colors.white),
-                        ),
+                    child: FloatingActionButton(
+                      backgroundColor: Color.fromARGB(255, 23, 90, 90),
+                      onPressed: () {
+                        setState(() {
+                          isMenuOpen = false;
+                        });
+                      },
+                      child: Text(
+                        'Удалить',
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
-                ],
-              ),
+                  ),
+              ],
             ),
-          )
+          ),
         ],
       ),
     );

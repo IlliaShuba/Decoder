@@ -26,6 +26,12 @@ class DecoderApp extends StatefulWidget {
     this.queryParameters,
   }) : super(key: key);
 
+
+  /// getInitialLink may rereturn the value multiple times if this view is
+  /// opened multiple times for example if the user logs out after they logged
+  /// in with qr code or magic link.
+  static bool gotInitialLink = false;
+
   @override
   State<StatefulWidget> createState() => DecoderAppState();
 }

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 
 import 'package:decoder/utils/platform_infos.dart';
+import 'package:vrouter/vrouter.dart';
 import 'app_config.dart';
 
 abstract class DecoderThemes {
@@ -16,8 +17,8 @@ abstract class DecoderThemes {
   static bool isColumnMode(BuildContext context) =>
       isColumnModeByWidth(MediaQuery.of(context).size.width);
 
- /* static bool getDisplayNavigationRail(BuildContext context) =>
-      !VRouter.of(context).path.startsWith('/settings');*/
+  static bool getDisplayNavigationRail(BuildContext context) =>
+      !VRouter.of(context).path.startsWith('/settings');
 
   static const fallbackTextStyle = TextStyle(
     fontFamily: 'Roboto',

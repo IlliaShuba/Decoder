@@ -47,6 +47,21 @@ dependencies:
   unifiedpush: ^5.0.0
   vrouter: ^1.2.1
   flutter_cache_manager: ^3.3.1
+  receive_sharing_intent: ^1.4.5
+  share_plus: ^7.0.2
+  uni_links: ^0.5.1
+  punycode: ^1.0.0
+  matrix_link_text: ^2.0.0
+  connectivity_plus: ^4.0.1
+  flutter_foreground_task: ^6.0.0+1
+  flutter_webrtc: ^0.9.35
+  just_audio: ^0.9.34
+  vibration: ^1.8.1
+  wakelock: ^0.4.0
+  callkeep: ^0.3.3
+  permission_handler: ^10.4.2
+  flutter_ringtone_player: ^3.2.0
+  badges: ^3.1.1
 
 
 

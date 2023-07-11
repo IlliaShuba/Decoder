@@ -22,7 +22,7 @@ class AppRoutes {
   List<VRouteElement> get _mobileRoutes => [
         VWidget(
           path: '/rooms',
-          widget: ChatListView(),
+          widget: ChatList(),
         ),
         VWidget(
           path: '/settings',

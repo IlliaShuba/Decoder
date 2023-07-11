@@ -7,7 +7,8 @@ import 'package:intl/intl.dart';
 import 'package:decoder/pages/chat_page/chat_page.dart';
 
 class ChatPageReceiver extends StatefulWidget {
-  const ChatPageReceiver({super.key, required this.text, this.image});
+  const ChatPageReceiver(
+      {super.key, required this.text, this.image, required this.onDelete});
   final String text;
   final File? image;
 
@@ -18,6 +19,7 @@ class ChatPageReceiver extends StatefulWidget {
 
 class _ChatPageReceiver extends State<ChatPageReceiver> {
   var date = DateFormat('HH:mm').format(DateTime.now());
+  bool isMenuOpen = false;
   @override
   Widget build(BuildContext context) {
     double baseWidth = 360;
@@ -123,17 +125,40 @@ class _ChatPageReceiver extends State<ChatPageReceiver> {
                       ),
                     ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 5 * fem),
-                  width: 20 * fem,
-                  height: 20 * fem,
-                  child: Image.asset(
-                    'assets/icon/user-avatar.png',
-                    fit: BoxFit.cover,
+                  Container(
+                    margin: EdgeInsets.only(left: 5 * fem),
+                    width: 20 * fem,
+                    height: 20 * fem,
+                    child: Image.asset(
+                      'assets/icon/user-avatar.png',
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-              ],
+                  SizedBox(
+                    width: 10 * fem,
+                  ),
+                  if (isMenuOpen)
+                    Container(
+                      width: 100,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                      ),
+                      child: FloatingActionButton(
+                        backgroundColor: Color.fromARGB(255, 23, 90, 90),
+                        onPressed: () {
+                          setState(() {
+                            isMenuOpen = false;
+                          });
+                        },
+                        child: Text(
+                          'Удалить',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
           )
         ],

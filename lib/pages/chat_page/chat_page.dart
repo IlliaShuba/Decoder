@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:decoder/pages/chat_list/chat_list_item.dart';
 import 'package:decoder/pages/chat_page/chat_page_date_up.dart';
 import 'package:decoder/pages/chat_page/chat_page_receiver.dart';
 import 'package:decoder/pages/chat_page/chat_page_sender.dart';
@@ -14,7 +15,9 @@ import 'package:vrouter/vrouter.dart';
 class ChatPage extends StatefulWidget {
   ChatPage({super.key, required this.userName});
   String userName;
+
   static List<Widget> chatPageReceiverList = [];
+
   @override
   // ignore: library_private_types_in_public_api
   _ChatPage createState() => _ChatPage();
@@ -46,12 +49,20 @@ class _ChatPage extends State<ChatPage> {
     });
   }
 
+  void deleteMessage(ChatPageReceiver message) {
+    setState(() {
+      chatPageReceiverList.remove(message);
+    });
+  }
+
   void sendMessage() {
     String text = _textEditingController.text;
     if (text.isNotEmpty || image != null) {
       setState(() {
         if (text.isNotEmpty) {
+
           ChatPage.chatPageReceiverList.add(ChatPageReceiver(text: text));
+
         }
         if (image != null) {
           ChatPage.chatPageReceiverList.add(ChatPageReceiver(
@@ -63,7 +74,6 @@ class _ChatPage extends State<ChatPage> {
       });
       _textEditingController.clear();
 
-      // Выполняем прокрутку вниз после добавления сообщения
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
@@ -123,7 +133,8 @@ class _ChatPage extends State<ChatPage> {
                   SizedBox(
                     width: 4 * fem,
                   ),
-                  Container(
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
                     child: Text(
                       widget.userName,
                       style: TextStyle(
@@ -195,6 +206,7 @@ class _ChatPage extends State<ChatPage> {
                       // СПІВРОЗМОВНИК!!!!!!!!!!!!!
                       ChatPageDateUp(),
                       ChatPageSender(
+
                         text: 'Привіт, як справи?',
                         sender: widget.userName,
                       ),
@@ -202,11 +214,13 @@ class _ChatPage extends State<ChatPage> {
                         text: 'Як там твоя родина?',
                         sender: widget.userName,
                       ),
+
                       SizedBox(
                         height: 10 * fem,
                       ),
                       // ВІДПОВІДАЧ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                       ...ChatPage.chatPageReceiverList,
+
                       SizedBox(
                         height: 10 * fem,
                       ),
